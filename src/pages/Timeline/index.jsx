@@ -19,7 +19,7 @@ export default function Timeline() {
                 userName="Juvenal Juvêncio"
                 userImageUrl="https://t.ctcdn.com.br/zchZha9msNRJoTyopHRHTgEJ5Iw=/1056x594/smart/i603337.jpeg"
                 description="Muito maneiro esse tutorial de Material UI com React, deem uma olhada! #react #material"
-                url="https://www.npmjs.com/package/url-metadata"
+                url="https://medium.com/"
               />
             </li>
           </PostsUlStyled>

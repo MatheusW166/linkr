@@ -1,10 +1,6 @@
-// PACKAGE IMPORTS
 import React from 'react';
+import Timeline from './pages/Timeline';
 
-// VALUE EXPORTS
 export default function App() {
-  return (
-    <>
-    </>
-  );
+  return <Timeline />;
 }
