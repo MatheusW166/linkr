@@ -1,7 +1,45 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
+import Context from '../Context';
 
-export default function LogInPage() {
+export default function SignInPage() {
+  const navigate = useNavigate();
+  const { setToken } = useContext(Context);
+
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  const signInTemplate = {
+    email,
+    password,
+  };
+
+  const url = 'http://localhost:5000';
+
+  const token = localStorage.getItem('token');
+
+  React.useEffect(() => {
+    if (token) {
+      navigate('/home');
+    }
+  });
+
+  function signIn(event) {
+    event.preventDefault();
+    const promise = axios.post(url, signInTemplate);
+
+    promise
+      .then((res) => {
+        setToken(res.data.token);
+        localStorage.setItem('token', res.data.token);
+        navigate('/home');
+      })
+      // eslint-disable-next-line no-alert
+      .catch((error) => alert(error.response.data));
+  }
+
   return (
     <MainContainer>
       <PageTitle>
@@ -14,15 +52,17 @@ export default function LogInPage() {
             required
             placeholder="E-mail"
             type="email"
+            onChange={(event) => setEmail(event.target.value)}
           />
           <input
             required
             placeholder="Senha"
             type="password"
+            onChange={(event) => setPassword(event.target.value)}
           />
-          <button type="submit">Log In</button>
+          <button type="submit" onClick={signIn}>Log In</button>
         </form>
-        <p> First time? Create an account! </p>
+        <button type="button" onClick={() => navigate('/sign-up')}> First time? Create an account! </button>
       </InputContainer>
     </MainContainer>
   );
@@ -136,10 +176,11 @@ const InputContainer = styled.div`
             font-weight: 700;
             font-size: 27px;
             line-height: 40px;
+            text-decoration-line: none;
         }
     }
 
-    p{
+    button{
         cursor: pointer;
         font-family: 'Lato';
         font-style: normal;
@@ -154,6 +195,7 @@ const InputContainer = styled.div`
         form{
             width: 100vw;
             padding: 25px;
+            margin-bottom: -25px;
         }
     }
 `;
