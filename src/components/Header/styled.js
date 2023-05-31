@@ -26,3 +26,20 @@ export const UserDropdownStyled = styled.div`
     font-size: 32px;
   }
 `;
+export const OutButton = styled.button`
+  position: fixed;
+  width: 140px;
+  height: 40px;
+  background-color: #151515;
+  color: #FFFFFF;
+  right: -15px;
+  margin-top: 72px;
+  border-radius: 0px 0px 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 17px;
+`;
