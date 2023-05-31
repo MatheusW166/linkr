@@ -44,6 +44,16 @@ const ResetStyle = createGlobalStyle`
   border-collapse: collapse;
   border-spacing: 0;
   }
+  input,textarea,button{
+    outline: none;
+    border: none;
+    resize: none;
+    background: inherit;
+    font-family: inherit;
+  }
+  ::placeholder{
+    font-family: inherit;
+  }
 `;
 
 export default ResetStyle;

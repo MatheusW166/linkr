@@ -6,6 +6,8 @@ const GlobalStyle = createGlobalStyle`
   }
   body{
     background-color: #333333;
+    color: #fff;
+    font-family: 'Lato', sans-serif;
   }
 
   input, button {
@@ -17,7 +19,12 @@ const GlobalStyle = createGlobalStyle`
   color: inherit;
   text-align: inherit;
 }
-
+  button {
+    cursor: pointer;
+    :hover {
+      opacity: 0.8;
+    }
+  }
 `;
 
 export default GlobalStyle;
