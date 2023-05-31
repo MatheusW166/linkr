@@ -27,7 +27,7 @@ export const PostStyled = styled.div`
   }
 `;
 
-export const PostLinkPreviewStyled = styled.div`
+export const PostLinkPreviewStyled = styled.a`
   border: 1px solid #4d4d4d;
   border-radius: 11px;
   overflow: hidden;

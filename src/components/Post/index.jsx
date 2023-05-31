@@ -17,7 +17,7 @@ export default function Post({
   userName,
   userImageUrl,
   description,
-  // url,
+  url,
 }) {
   // useEffect(() => {
   //   if (!url) {
@@ -32,7 +32,7 @@ export default function Post({
       <div>
         <p>{userName}</p>
         <p>{accentHashtagsParser(description)}</p>
-        <PostLinkPreview />
+        <PostLinkPreview url={url} />
       </div>
     </PostStyled>
   );
@@ -45,7 +45,7 @@ export function PostLinkPreview({
   imageUrl,
 }) {
   return (
-    <PostLinkPreviewStyled>
+    <PostLinkPreviewStyled href={url} target="_blank">
       <div>
         <h3>{title}</h3>
         <p>{description}</p>

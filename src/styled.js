@@ -21,6 +21,12 @@ export const TitleH2Styled = styled.h2`
   font-size: 43px;
 `;
 
+export const ErrorMessageStyled = styled.h3`
+  font-size: 16px;
+  font-weight: 700;
+  color: #ef4444;
+`;
+
 export const PrimaryButtonStyled = styled.button`
   background: #1877f2;
   border-radius: 5px;

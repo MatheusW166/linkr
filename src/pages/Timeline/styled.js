@@ -15,10 +15,3 @@ export const MainStyled = styled.main`
   max-width: 616px;
   gap: 40px;
 `;
-
-export const PostsUlStyled = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 24px;
-`;
