@@ -1,6 +1,17 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { PostStyled, PostLinkPreviewStyled } from './styled';
 import { UserAvatarStyled } from '../../styled';
+
+export function accentHashtagsParser(text) {
+  if (!text?.trim()) return '';
+  return text.split(' ').map((word, idx) => {
+    if (word[0] === '#') {
+      return <strong key={idx}>{` ${word} `}</strong>;
+    }
+    return ` ${word} `;
+  });
+}
 
 export default function Post({
   userName,
@@ -20,7 +31,7 @@ export default function Post({
       <UserAvatarStyled src={userImageUrl} alt="avatar" />
       <div>
         <p>{userName}</p>
-        <p>{description}</p>
+        <p>{accentHashtagsParser(description)}</p>
         <PostLinkPreview />
       </div>
     </PostStyled>

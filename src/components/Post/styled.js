@@ -19,6 +19,10 @@ export const PostStyled = styled.div`
     & > p:nth-child(2) {
       color: #b7b7b7;
       font-size: 16px;
+      strong {
+        font-weight: 700;
+        color: #fff;
+      }
     }
   }
 `;
