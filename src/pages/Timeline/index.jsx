@@ -43,7 +43,12 @@ export default function Timeline() {
         <MainStyled>
           <TitleH2Styled>timeline</TitleH2Styled>
           <CreatePost loading={loadingPublish} onSubmit={handlePostSubmit} />
-          <PostsList posts={posts} error={errorPosts} loading={loadingPosts} />
+          <PostsList
+            posts={posts}
+            error={errorPosts}
+            loading={loadingPosts}
+            refreshPosts={refreshPosts}
+          />
         </MainStyled>
       </PageContainerStyled>
     </>
