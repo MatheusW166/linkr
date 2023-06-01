@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { InputContainer, MainContainer, PageTitle } from '../components/InitialScreen/styled';
+import client from '../services/api/api.client';
 
 export default function SignUpPage() {
   const navigate = useNavigate();
@@ -11,14 +11,14 @@ export default function SignUpPage() {
   const [photo, setPhoto] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+
   const templateSignUp = {
     email,
     password,
     name,
     photo,
   };
-
-  const url = 'http://localhost:5000';
 
   const token = localStorage.getItem('token');
 
@@ -30,12 +30,19 @@ export default function SignUpPage() {
 
   function createAccount(event) {
     event.preventDefault();
-    const promise = axios.post(`${url}/sign-up`, templateSignUp);
+    setIsSubmitting(true);
+    const promise = client.post(`${process.env.REACT_APP_API_URL}/sign-up`, templateSignUp);
 
-    promise.then(() => navigate('/'));
+    promise.then(() => {
+      setIsSubmitting(false);
+      navigate('/');
+    });
 
-    // eslint-disable-next-line no-alert
-    promise.catch((error) => alert(error.response.data));
+    promise.catch((error) => {
+      setIsSubmitting(false);
+      // eslint-disable-next-line no-alert
+      alert(error.response.data);
+    });
   }
 
   return (
@@ -72,7 +79,7 @@ export default function SignUpPage() {
           />
           <button type="submit" onClick={createAccount}>Sign Up</button>
         </form>
-        <button type="button" onClick={() => navigate('/')}> Switch back to log in </button>
+        <button disabled={isSubmitting} type="button" onClick={() => navigate('/')}> Switch back to log in </button>
       </InputContainer>
     </MainContainer>
   );

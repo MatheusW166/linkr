@@ -1,22 +1,22 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import Context from '../Context';
 import { InputContainer, MainContainer, PageTitle } from '../components/InitialScreen/styled';
+import client from '../services/api/api.client';
 
 export default function SignInPage() {
   const navigate = useNavigate();
-  const { setToken } = useContext(Context);
+  const { setToken, setUser } = useContext(Context);
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const signInTemplate = {
     email,
     password,
   };
-
-  const url = 'http://localhost:5000';
 
   const token = localStorage.getItem('token');
 
@@ -28,16 +28,24 @@ export default function SignInPage() {
 
   function signIn(event) {
     event.preventDefault();
-    const promise = axios.post(url, signInTemplate);
+    setIsSubmitting(true);
+    const promise = client.post(process.env.REACT_APP_API_URL, signInTemplate);
 
     promise
       .then((res) => {
+        setIsSubmitting(false);
         setToken(res.data.token);
         localStorage.setItem('token', res.data.token);
-        navigate('/home');
+        setUser(res.data.user);
+        const stringUser = JSON.stringify(res.data.user);
+        localStorage.setItem('user', stringUser);
+        navigate('/timeline');
       })
-      // eslint-disable-next-line no-alert
-      .catch((error) => alert(error.response.data));
+      .catch((error) => {
+        setIsSubmitting(false);
+        // eslint-disable-next-line no-alert
+        alert(error.response.data);
+      });
   }
 
   return (
@@ -60,7 +68,7 @@ export default function SignInPage() {
             type="password"
             onChange={(event) => setPassword(event.target.value)}
           />
-          <button type="submit" onClick={signIn}>Log In</button>
+          <button disabled={isSubmitting} type="submit" onClick={signIn}>Log In</button>
         </form>
         <button type="button" onClick={() => navigate('/sign-up')}> First time? Create an account! </button>
       </InputContainer>
