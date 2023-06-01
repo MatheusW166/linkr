@@ -1,66 +1,76 @@
-/* eslint-disable no-console */
-/* eslint-disable react/no-array-index-key */
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { PostStyled, PostLinkPreviewStyled } from './styled';
-import { UserAvatarStyled, UserNameStyled } from '../../styled';
-import scrapUrl from '../../services/scraper/scraper.services';
-
-export function accentHashtagsParser(text) {
-  if (!text?.trim()) return '';
-  return text.split(' ').map((word, idx) => {
-    if (word[0] === '#') {
-      return <strong key={idx}>{` ${word} `}</strong>;
-    }
-    return ` ${word} `;
-  });
-}
+/* eslint-disable no-alert */
+import React, { useState } from 'react';
+import { AiFillDelete } from 'react-icons/ai';
+import { MdEdit } from 'react-icons/md';
+import { PostActionsStyled, PostStyled } from './styled';
+import { UserAvatarStyled } from '../../styled';
+import highlightHashtags from './utils';
+import LinkPreview from '../LinkPreview';
+import ModalCustom from '../ModalCustom';
+import { useMutation } from '../../hooks/request.hooks';
+import { deletePost } from '../../services/api/posts.services';
 
 export default function Post({
+  postId,
   userName,
   userImageUrl,
+  userId,
   description,
   url,
-  userId,
+  refreshPosts,
 }) {
-  const navigate = useNavigate();
+  const [isModalOpen, setIsOpen] = useState(false);
 
-  const handleClick = () => {
-    navigate(`/user/${userId}`);
+  const {
+    mutate: deleteUserPost,
+    loading: loadingDelete,
+  } = useMutation(deletePost);
+
+  const loggedUserId = 3;
+  const isPostOwner = loggedUserId === userId;
+
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+
+  const handleDelete = () => {
+    deleteUserPost({
+      postId,
+      onSuccess: () => {
+        closeModal();
+        refreshPosts();
+      },
+      onError: () => {
+        closeModal();
+        alert('Unable to delete post');
+      },
+    });
   };
 
   return (
-    <PostStyled>
-      <UserAvatarStyled onClick={handleClick} style={{ cursor: 'pointer' }} src={userImageUrl} alt="avatar" />
-      <div>
-        <UserNameStyled onClick={handleClick} style={{ cursor: 'pointer' }}>{userName}</UserNameStyled>
-        <p>{accentHashtagsParser(description)}</p>
-        <PostLinkPreview url={url} />
-      </div>
-    </PostStyled>
-  );
-}
-
-export function PostLinkPreview({ url }) {
-  const [preview, setPreview] = useState();
-
-  useEffect(() => {
-    if (!url) {
-      return;
-    }
-    scrapUrl({ url })
-      .then(setPreview)
-      .catch(() => setPreview(null));
-  }, []);
-
-  return (
-    <PostLinkPreviewStyled href={url} target="_blank">
-      <div>
-        {preview?.title && <h3>{preview.title}</h3>}
-        {preview?.description && <p>{preview?.description}</p>}
-        <small>{url}</small>
-      </div>
-      {preview?.icon && <img alt="url-img" src={preview.icon} />}
-    </PostLinkPreviewStyled>
+    <>
+      <ModalCustom
+        title="Are you sure you want to delete this post?"
+        confirmText="Yes, delete it"
+        cancelText="No, go back"
+        onConfirm={handleDelete}
+        onCancel={closeModal}
+        isOpen={isModalOpen}
+        isLoading={loadingDelete}
+      />
+      <PostStyled>
+        {isPostOwner && (
+          <PostActionsStyled>
+            <MdEdit />
+            <AiFillDelete onClick={openModal} />
+          </PostActionsStyled>
+        )}
+        <UserAvatarStyled src={userImageUrl} alt="avatar" />
+        <div>
+          <p>{userName}</p>
+          <p>{highlightHashtags(description)}</p>
+          <LinkPreview url={url} />
+        </div>
+      </PostStyled>
+    </>
   );
 }

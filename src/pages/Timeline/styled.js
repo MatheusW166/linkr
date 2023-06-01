@@ -15,6 +15,10 @@ export const MainStyled = styled.main`
   gap: 40px;
   margin: 0 auto;
 
+  & > h3 {
+    margin: 0 24px;
+  }
+
   h2 {
     @media screen and (max-width: 800px) {
       margin-left: 24px;

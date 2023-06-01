@@ -10,10 +10,13 @@ export default function App() {
   const lsToken = localStorage.getItem('token');
   const [token, setToken] = useState(lsToken);
 
-  const contextValue = useMemo(() => ({
-    token,
-    setToken,
-  }), [token]);
+  const contextValue = useMemo(
+    () => ({
+      token,
+      setToken,
+    }),
+    [token],
+  );
 
   return (
     <Context.Provider value={contextValue}>
