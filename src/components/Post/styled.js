@@ -26,6 +26,24 @@ export const PostStyled = styled.div`
       }
     }
   }
+
+  @media screen and (max-width: 800px) {
+    border-radius: 0;
+    & > img {
+      width: 40px;
+      height: 40px;
+    }
+
+    & > div:last-child {
+      & > p:nth-child(1) {
+        font-size: 16px;
+      }
+
+      & > p:nth-child(2) {
+        font-size: 14px;
+      }
+    }
+  }
 `;
 
 export const PostLinkPreviewStyled = styled.a`
@@ -44,7 +62,7 @@ export const PostLinkPreviewStyled = styled.a`
     flex-direction: column;
     gap: 8px;
     padding: 24px;
-    flex: 1 1 60px;
+    flex: 1;
 
     h3 {
       font-size: 16px;
@@ -66,5 +84,25 @@ export const PostLinkPreviewStyled = styled.a`
     height: 100%;
     max-width: 150px;
     object-fit: cover;
+  }
+
+  @media screen and (max-width: 800px) {
+    & > div:first-child {
+      h3 {
+        font-size: 11px;
+      }
+
+      p {
+        font-size: 9px;
+      }
+
+      small {
+        font-size: 9px;
+      }
+    }
+
+    img {
+      max-width: 95px;
+    }
   }
 `;

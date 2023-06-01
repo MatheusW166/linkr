@@ -19,6 +19,20 @@ export const CreatePostStyled = styled.div`
       font-weight: 300;
     }
   }
+
+  @media screen and (max-width: 800px) {
+    border-radius: 0;
+    img {
+      display: none;
+    }
+
+    div:last-child {
+      p {
+        font-size: 16px;
+        text-align: center;
+      }
+    }
+  }
 `;
 
 export const CreatePostFormStyled = styled.form`
@@ -29,6 +43,14 @@ export const CreatePostFormStyled = styled.form`
   button {
     width: min(112px, 100%);
     margin-left: auto;
+  }
+
+  @media screen and (max-width: 800px) {
+    input,
+    textarea,
+    button {
+      font-size: 13px;
+    }
   }
 `;
 

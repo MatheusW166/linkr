@@ -14,4 +14,10 @@ export const MainStyled = styled.main`
   width: min(616px, 100%);
   gap: 40px;
   margin: 0 auto;
+
+  h2 {
+    @media screen and (max-width: 800px) {
+      margin-left: 24px;
+    }
+  }
 `;

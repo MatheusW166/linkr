@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { PostStyled, PostLinkPreviewStyled } from './styled';
 import { UserAvatarStyled } from '../../styled';
+import scrapUrl from '../../services/scraper/scraper.services';
 
 export function accentHashtagsParser(text) {
   if (!text?.trim()) return '';
@@ -33,18 +34,16 @@ export default function Post({
 }
 
 export function PostLinkPreview({ url }) {
-  // const [preview, setPreview] = useState();
+  const [preview, setPreview] = useState();
 
-  const preview = {};
-
-  // useEffect(() => {
-  //   if (!url) {
-  //     return;
-  //   }
-  //   scrapUrl({ url })
-  //     .then(setPreview)
-  //     .catch(() => setPreview(null));
-  // }, []);
+  useEffect(() => {
+    if (!url) {
+      return;
+    }
+    scrapUrl({ url })
+      .then(setPreview)
+      .catch(() => setPreview(null));
+  }, []);
 
   return (
     <PostLinkPreviewStyled href={url} target="_blank">
