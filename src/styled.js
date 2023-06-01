@@ -34,6 +34,16 @@ export const TitleH2Styled = styled.h2`
   }
 `;
 
+export const TitleH3Styled = styled.h3`
+  font-weight: 700;
+  font-size: 24px;
+  text-align: center;
+
+  @media screen and (max-width: 800px) {
+    font-size: 18px;
+  }
+`;
+
 export const ErrorMessageStyled = styled.h3`
   font-size: 16px;
   font-weight: 700;
@@ -48,4 +58,30 @@ export const PrimaryButtonStyled = styled.button`
   color: #fff;
   height: 30px;
   text-align: center;
+  padding: 0 16px;
+`;
+
+export const SecondaryButtonStyled = styled(PrimaryButtonStyled)`
+  background: #fff;
+  color: #1877f2;
+`;
+
+export const LoaderStyled = styled.span`
+  width: 48px;
+  height: 48px;
+  border: 5px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 `;
