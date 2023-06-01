@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { PostStyled, PostLinkPreviewStyled } from './styled';
@@ -19,13 +20,6 @@ export default function Post({
   description,
   url,
 }) {
-  // useEffect(() => {
-  //   if (!url) {
-  //     return;
-  //   }
-  //   urlMetadata(url).then(console.log).catch(console.log);
-  // }, []);
-
   return (
     <PostStyled>
       <UserAvatarStyled src={userImageUrl} alt="avatar" />
@@ -38,20 +32,28 @@ export default function Post({
   );
 }
 
-export function PostLinkPreview({
-  title,
-  description,
-  url,
-  imageUrl,
-}) {
+export function PostLinkPreview({ url }) {
+  // const [preview, setPreview] = useState();
+
+  const preview = {};
+
+  // useEffect(() => {
+  //   if (!url) {
+  //     return;
+  //   }
+  //   scrapUrl({ url })
+  //     .then(setPreview)
+  //     .catch(() => setPreview(null));
+  // }, []);
+
   return (
     <PostLinkPreviewStyled href={url} target="_blank">
       <div>
-        <h3>{title}</h3>
-        <p>{description}</p>
+        {preview?.title && <h3>{preview.title}</h3>}
+        {preview?.description && <p>{preview?.description}</p>}
         <small>{url}</small>
       </div>
-      <img alt="url-img" src={imageUrl} />
+      {preview?.icon && <img alt="url-img" src={preview.icon} />}
     </PostLinkPreviewStyled>
   );
 }

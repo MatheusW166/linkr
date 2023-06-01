@@ -5,7 +5,7 @@ import { TitleH2Styled } from '../../styled';
 import CreatePost from '../../components/CreatePost';
 import Header from '../../components/Header';
 import { useMutation, useRequest } from '../../hooks/request.hooks';
-import { publishPost, searchPosts } from '../../services/timeline.services';
+import { publishPost, searchPosts } from '../../services/api/timeline.services';
 import PostsList from '../../components/PostsList';
 
 export default function Timeline() {

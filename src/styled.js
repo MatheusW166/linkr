@@ -34,4 +34,5 @@ export const PrimaryButtonStyled = styled.button`
   font-size: 14px;
   color: #fff;
   height: 30px;
+  text-align: center;
 `;

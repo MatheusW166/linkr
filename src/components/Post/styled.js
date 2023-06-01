@@ -10,6 +10,7 @@ export const PostStyled = styled.div`
   & > div:last-child {
     display: flex;
     flex-direction: column;
+    flex: 1;
     gap: 8px;
 
     & > p:nth-child(1) {
@@ -32,7 +33,6 @@ export const PostLinkPreviewStyled = styled.a`
   border-radius: 11px;
   overflow: hidden;
   display: flex;
-  flex-wrap: wrap-reverse;
   cursor: pointer;
 
   &:hover {
