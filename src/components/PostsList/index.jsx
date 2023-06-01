@@ -23,6 +23,7 @@ export default function PostsList({ posts, loading, error }) {
         <li key={post.id}>
           <Post
             userName={post.userName}
+            userId={post.userId}
             userImageUrl={post.userImageUrl}
             description={post.description}
             url={post.url}
