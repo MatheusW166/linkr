@@ -12,6 +12,9 @@ export const UserAvatarStyled = styled.img`
   }
 `;
 
+export const UserNameStyled = styled.p`
+`;
+
 export const TitleH1Styled = styled.h1`
   font-family: 'Passion One', sans-serif;
   font-weight: 700;

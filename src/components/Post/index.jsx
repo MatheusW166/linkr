@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 /* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PostStyled, PostLinkPreviewStyled } from './styled';
-import { UserAvatarStyled } from '../../styled';
+import { UserAvatarStyled, UserNameStyled } from '../../styled';
 import scrapUrl from '../../services/scraper/scraper.services';
 
 export function accentHashtagsParser(text) {
@@ -20,12 +21,19 @@ export default function Post({
   userImageUrl,
   description,
   url,
+  userId,
 }) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/user/${userId}`);
+  };
+
   return (
     <PostStyled>
-      <UserAvatarStyled src={userImageUrl} alt="avatar" />
+      <UserAvatarStyled onClick={handleClick} style={{ cursor: 'pointer' }} src={userImageUrl} alt="avatar" />
       <div>
-        <p>{userName}</p>
+        <UserNameStyled onClick={handleClick} style={{ cursor: 'pointer' }}>{userName}</UserNameStyled>
         <p>{accentHashtagsParser(description)}</p>
         <PostLinkPreview url={url} />
       </div>
