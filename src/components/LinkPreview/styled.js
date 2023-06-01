@@ -40,7 +40,7 @@ const LinkPreviewStyled = styled.a`
     object-fit: cover;
   }
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 616px) {
     & > div:first-child {
       h3 {
         font-size: 11px;
