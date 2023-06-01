@@ -2,23 +2,22 @@ import styled from 'styled-components';
 
 export const PageContainerStyled = styled.div`
   margin: 0 auto;
-  padding: 0 24px;
   padding-top: calc(72px + 64px);
   display: flex;
   justify-content: center;
+  width: 100%;
 `;
 
 export const MainStyled = styled.main`
   display: flex;
   flex-direction: column;
-  flex: 1;
-  max-width: 616px;
+  width: min(616px, 100%);
   gap: 40px;
-`;
+  margin: 0 auto;
 
-export const PostsUlStyled = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 24px;
+  h2 {
+    @media screen and (max-width: 800px) {
+      margin-left: 24px;
+    }
+  }
 `;

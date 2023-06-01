@@ -25,6 +25,9 @@ const GlobalStyle = createGlobalStyle`
       opacity: 0.8;
     }
   }
+  :disabled {
+    opacity: 0.4;
+  }
 `;
 
 export default GlobalStyle;

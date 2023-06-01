@@ -10,6 +10,7 @@ export const PostStyled = styled.div`
   & > div:last-child {
     display: flex;
     flex-direction: column;
+    flex: 1;
     gap: 8px;
 
     & > p:nth-child(1) {
@@ -25,14 +26,31 @@ export const PostStyled = styled.div`
       }
     }
   }
+
+  @media screen and (max-width: 800px) {
+    border-radius: 0;
+    & > img {
+      width: 40px;
+      height: 40px;
+    }
+
+    & > div:last-child {
+      & > p:nth-child(1) {
+        font-size: 16px;
+      }
+
+      & > p:nth-child(2) {
+        font-size: 14px;
+      }
+    }
+  }
 `;
 
-export const PostLinkPreviewStyled = styled.div`
+export const PostLinkPreviewStyled = styled.a`
   border: 1px solid #4d4d4d;
   border-radius: 11px;
   overflow: hidden;
   display: flex;
-  flex-wrap: wrap-reverse;
   cursor: pointer;
 
   &:hover {
@@ -44,7 +62,7 @@ export const PostLinkPreviewStyled = styled.div`
     flex-direction: column;
     gap: 8px;
     padding: 24px;
-    flex: 1 1 60px;
+    flex: 1;
 
     h3 {
       font-size: 16px;
@@ -66,5 +84,25 @@ export const PostLinkPreviewStyled = styled.div`
     height: 100%;
     max-width: 150px;
     object-fit: cover;
+  }
+
+  @media screen and (max-width: 800px) {
+    & > div:first-child {
+      h3 {
+        font-size: 11px;
+      }
+
+      p {
+        font-size: 9px;
+      }
+
+      small {
+        font-size: 9px;
+      }
+    }
+
+    img {
+      max-width: 95px;
+    }
   }
 `;

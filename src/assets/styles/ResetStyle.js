@@ -54,6 +54,10 @@ const ResetStyle = createGlobalStyle`
   ::placeholder{
     font-family: inherit;
   }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 export default ResetStyle;

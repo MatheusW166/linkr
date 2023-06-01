@@ -7,7 +7,7 @@ import {
   CreatePostTextAreaStyled,
 } from './styled';
 
-export default function CreatePost() {
+export default function CreatePost({ onSubmit, loading = false }) {
   return (
     <CreatePostStyled>
       <UserAvatarStyled
@@ -16,14 +16,23 @@ export default function CreatePost() {
       />
       <div>
         <p>What are you going to share today?</p>
-        <CreatePostFormStyled>
-          <CreatePostInputStyled placeholder="http://..." type="url" required />
+        <CreatePostFormStyled onSubmit={onSubmit}>
+          <CreatePostInputStyled
+            name="url"
+            placeholder="http://..."
+            type="url"
+            required
+            disabled={loading}
+          />
           <CreatePostTextAreaStyled
+            name="description"
             placeholder="Type here!"
             rows={4}
-            required
+            disabled={loading}
           />
-          <PrimaryButtonStyled type="submit">Publish</PrimaryButtonStyled>
+          <PrimaryButtonStyled disabled={loading} type="submit">
+            {loading ? 'Publishing...' : 'Publish'}
+          </PrimaryButtonStyled>
         </CreatePostFormStyled>
       </div>
     </CreatePostStyled>
