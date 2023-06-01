@@ -29,8 +29,8 @@ export default function PostsList({
           <Post
             postId={post.id}
             userName={post.userName}
-            userImageUrl={post.userImageUrl}
             userId={post.userId}
+            userImageUrl={post.userImageUrl}
             description={post.description}
             url={post.url}
             refreshPosts={refreshPosts}
