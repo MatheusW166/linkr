@@ -4,6 +4,7 @@ import SignInPage from './pages/SignIn';
 import SignUpPage from './pages/SignUpPage';
 import Context from './Context';
 import Timeline from './pages/Timeline';
+import UserPage from './pages/UserPage';
 
 export default function App() {
   const lsToken = localStorage.getItem('token');
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/" element={<SignInPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/timeline" element={<Timeline />} />
+          <Route path="/user/:id" element={<UserPage />} />
         </Routes>
       </BrowserRouter>
     </Context.Provider>

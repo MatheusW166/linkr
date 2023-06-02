@@ -6,6 +6,7 @@ export const PostStyled = styled.div`
   padding: 16px 18px;
   display: flex;
   gap: 18px;
+  position: relative;
 
   & > div:last-child {
     display: flex;
@@ -46,63 +47,14 @@ export const PostStyled = styled.div`
   }
 `;
 
-export const PostLinkPreviewStyled = styled.a`
-  border: 1px solid #4d4d4d;
-  border-radius: 11px;
-  overflow: hidden;
+export const PostActionsStyled = styled.div`
+  position: absolute;
+  right: 18px;
   display: flex;
-  cursor: pointer;
+  gap: 12px;
 
-  &:hover {
-    background: #222;
-  }
-
-  & > div:first-child {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 24px;
-    flex: 1;
-
-    h3 {
-      font-size: 16px;
-      color: #cecece;
-    }
-
-    p {
-      font-size: 11px;
-      color: #9b9595;
-    }
-
-    small {
-      font-size: 11px;
-      color: #cecece;
-    }
-  }
-
-  img {
-    height: 100%;
-    max-width: 150px;
-    object-fit: cover;
-  }
-
-  @media screen and (max-width: 800px) {
-    & > div:first-child {
-      h3 {
-        font-size: 11px;
-      }
-
-      p {
-        font-size: 9px;
-      }
-
-      small {
-        font-size: 9px;
-      }
-    }
-
-    img {
-      max-width: 95px;
-    }
+  svg:hover {
+    opacity: 0.8;
+    cursor: pointer;
   }
 `;
