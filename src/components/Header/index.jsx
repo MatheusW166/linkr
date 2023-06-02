@@ -12,7 +12,7 @@ export default function Header() {
   const { user } = useContext(Context);
 
   function logOut() {
-    const promise = client.delete(`${process.env.REACT_APP_API_URL}/log-out`, {});
+    const promise = client.delete('/log-out', {});
 
     promise
       .then(() => {

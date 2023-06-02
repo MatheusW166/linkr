@@ -29,7 +29,7 @@ export default function SignInPage() {
   function signIn(event) {
     event.preventDefault();
     setIsSubmitting(true);
-    const promise = client.post(process.env.REACT_APP_API_URL, signInTemplate);
+    const promise = client.post('/', signInTemplate);
 
     promise
       .then((res) => {

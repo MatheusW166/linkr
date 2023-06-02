@@ -31,7 +31,7 @@ export default function SignUpPage() {
   function createAccount(event) {
     event.preventDefault();
     setIsSubmitting(true);
-    const promise = client.post(`${process.env.REACT_APP_API_URL}/sign-up`, templateSignUp);
+    const promise = client.post('/sign-up', templateSignUp);
 
     promise.then(() => {
       setIsSubmitting(false);
