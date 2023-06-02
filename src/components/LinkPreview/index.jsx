@@ -21,7 +21,7 @@ export default function LinkPreview({ url }) {
         {preview?.description && <p>{preview.description}</p>}
         <small>{url}</small>
       </div>
-      {preview?.icon && <img alt="url-img" src={preview.icon} />}
+      {preview?.icon && <img alt={preview?.title} src={preview.icon} />}
     </LinkPreviewStyled>
   );
 }

@@ -38,7 +38,7 @@ export default function Header() {
             <MdKeyboardArrowUp />
           )}
           <UserAvatarStyled
-            src={user.photo}
+            src={user?.photo}
             alt="avatar"
           />
         </UserDropdownStyled>
