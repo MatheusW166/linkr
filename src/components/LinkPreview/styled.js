@@ -5,6 +5,7 @@ const LinkPreviewStyled = styled.a`
   border-radius: 11px;
   overflow: hidden;
   display: flex;
+  max-width: 512px;
   cursor: pointer;
 
   &:hover {
@@ -35,8 +36,8 @@ const LinkPreviewStyled = styled.a`
   }
 
   img {
+    width: 30%;
     height: 100%;
-    max-width: 150px;
     object-fit: cover;
   }
 
@@ -53,10 +54,6 @@ const LinkPreviewStyled = styled.a`
       small {
         font-size: 9px;
       }
-    }
-
-    img {
-      max-width: 95px;
     }
   }
 `;

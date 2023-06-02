@@ -7,6 +7,7 @@ export const PostStyled = styled.div`
   display: flex;
   gap: 18px;
   position: relative;
+  overflow: hidden;
 
   & > div:last-child {
     display: flex;

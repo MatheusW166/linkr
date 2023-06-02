@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { MdEdit } from 'react-icons/md';
 import EditableText from '../EditableText';
@@ -10,6 +10,7 @@ import LinkPreview from '../LinkPreview';
 import ModalCustom from '../ModalCustom';
 import { useMutation } from '../../hooks/request.hooks';
 import { deletePost, editPost } from '../../services/api/posts.services';
+import Context from '../../Context';
 
 export default function Post({
   postId,
@@ -22,6 +23,8 @@ export default function Post({
 }) {
   const [isModalOpen, setIsOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const { user: loggedUser } = useContext(Context);
+  const isPostOwner = loggedUser?.id === userId;
 
   const {
     mutate: deleteUserPost,
@@ -32,9 +35,6 @@ export default function Post({
     mutate: editUserPost,
     loading: loadingEdit,
   } = useMutation(editPost);
-
-  const loggedUserId = 3;
-  const isPostOwner = loggedUserId === userId;
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
