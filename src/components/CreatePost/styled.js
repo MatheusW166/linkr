@@ -20,7 +20,7 @@ export const CreatePostStyled = styled.div`
     }
   }
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 616px) {
     border-radius: 0;
     img {
       display: none;
@@ -45,7 +45,7 @@ export const CreatePostFormStyled = styled.form`
     margin-left: auto;
   }
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 616px) {
     input,
     textarea,
     button {

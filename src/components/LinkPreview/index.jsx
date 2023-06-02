@@ -1,5 +1,7 @@
+/* eslint-disable no-useless-return */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import scrapUrl from '../../services/scraper/scraper.services';
+// import scrapUrl from '../../services/scraper/scraper.services';
 import LinkPreviewStyled from './styled';
 
 export default function LinkPreview({ url }) {
@@ -9,9 +11,9 @@ export default function LinkPreview({ url }) {
     if (!url) {
       return;
     }
-    scrapUrl({ url })
-      .then(setPreview)
-      .catch(() => setPreview(null));
+    // scrapUrl({ url })
+    //   .then(setPreview)
+    //   .catch(() => setPreview(null));
   }, []);
 
   return (

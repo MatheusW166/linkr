@@ -18,7 +18,8 @@ export const PostStyled = styled.div`
       font-size: 19px;
     }
 
-    & > p:nth-child(2) {
+    & > p:nth-child(2),
+    & > textarea {
       color: #b7b7b7;
       font-size: 16px;
       strong {
@@ -28,7 +29,7 @@ export const PostStyled = styled.div`
     }
   }
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 616px) {
     border-radius: 0;
     & > img {
       width: 40px;
@@ -40,7 +41,8 @@ export const PostStyled = styled.div`
         font-size: 16px;
       }
 
-      & > p:nth-child(2) {
+      & > p:nth-child(2),
+      & > textarea {
         font-size: 14px;
       }
     }

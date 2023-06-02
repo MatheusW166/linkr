@@ -16,7 +16,7 @@ export const MainStyled = styled.main`
   margin: 0 auto;
 
   h2 {
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 616px) {
       margin-left: 24px;
     }
   }

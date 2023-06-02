@@ -2,35 +2,45 @@
 import React, { useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { MdEdit } from 'react-icons/md';
+import EditableText from '../EditableText';
 import { PostActionsStyled, PostStyled } from './styled';
 import { UserAvatarStyled } from '../../styled';
 import highlightHashtags from './utils';
 import LinkPreview from '../LinkPreview';
 import ModalCustom from '../ModalCustom';
 import { useMutation } from '../../hooks/request.hooks';
-import { deletePost } from '../../services/api/posts.services';
+import { deletePost, editPost } from '../../services/api/posts.services';
 
 export default function Post({
   postId,
   userName,
   userImageUrl,
   userId,
-  description,
   url,
   refreshPosts,
+  description: rawDescription,
 }) {
   const [isModalOpen, setIsOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const {
     mutate: deleteUserPost,
     loading: loadingDelete,
   } = useMutation(deletePost);
 
+  const {
+    mutate: editUserPost,
+    loading: loadingEdit,
+  } = useMutation(editPost);
+
   const loggedUserId = 3;
   const isPostOwner = loggedUserId === userId;
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
+
+  const closeEdition = () => setIsEditing(false);
+  const toggleEdition = () => setIsEditing(!isEditing);
 
   const handleDelete = () => {
     deleteUserPost({
@@ -46,6 +56,28 @@ export default function Post({
     });
   };
 
+  const handleEdit = (event) => {
+    const editedText = event.target.value?.trim();
+    if (editedText === rawDescription) {
+      closeEdition();
+      return;
+    }
+    editUserPost({
+      postId,
+      url,
+      description: editedText,
+      onSuccess: () => {
+        closeEdition();
+        refreshPosts();
+      },
+      onError: () => {
+        alert('Unable to edit post');
+      },
+    });
+  };
+
+  const postDescription = highlightHashtags(rawDescription);
+
   return (
     <>
       <ModalCustom
@@ -58,19 +90,37 @@ export default function Post({
         isLoading={loadingDelete}
       />
       <PostStyled>
-        {isPostOwner && (
-          <PostActionsStyled>
-            <MdEdit />
-            <AiFillDelete onClick={openModal} />
-          </PostActionsStyled>
-        )}
+        <PostActions
+          isPostOwner={isPostOwner}
+          onClickDelete={openModal}
+          onClickEdit={toggleEdition}
+        />
         <UserAvatarStyled src={userImageUrl} alt="avatar" />
         <div>
           <p>{userName}</p>
-          <p>{highlightHashtags(description)}</p>
+          <EditableText
+            text={postDescription}
+            defaultInputValue={rawDescription}
+            isEditing={isEditing}
+            onEscape={closeEdition}
+            onEnter={handleEdit}
+            disabled={loadingEdit}
+          />
           <LinkPreview url={url} />
         </div>
       </PostStyled>
     </>
+  );
+}
+
+export function PostActions({ isPostOwner, onClickDelete, onClickEdit }) {
+  if (!isPostOwner) return '';
+  return (
+    isPostOwner && (
+      <PostActionsStyled>
+        <MdEdit onClick={onClickEdit} />
+        <AiFillDelete onClick={onClickDelete} />
+      </PostActionsStyled>
+    )
   );
 }

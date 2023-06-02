@@ -6,7 +6,7 @@ export const UserAvatarStyled = styled.img`
   border-radius: 100%;
   object-fit: cover;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 616px) {
     width: 44px;
     height: 44px;
   }
@@ -21,7 +21,7 @@ export const TitleH1Styled = styled.h1`
   letter-spacing: 0.06em;
   font-size: 49px;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 616px) {
     font-size: 45px;
   }
 `;
@@ -32,7 +32,7 @@ export const TitleH2Styled = styled.h2`
   font-weight: 700;
   font-size: 43px;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 616px) {
     font-size: 33px;
   }
 `;
@@ -42,7 +42,7 @@ export const TitleH3Styled = styled.h3`
   font-size: 24px;
   text-align: center;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 616px) {
     font-size: 18px;
   }
 `;
