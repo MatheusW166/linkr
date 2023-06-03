@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { Tooltip } from 'react-tooltip';
 import { LikesButton, LikesContainer } from './styled';
 
 export default function Likes({ postId }) {
@@ -28,6 +29,7 @@ export default function Likes({ postId }) {
     axios.put(`${REACT_APP_API_URL}/posts/${id}/like`, body, { headers: { Authorization: `Bearer ${token}` } })
       .then(() => {
         setLikes({
+          ...likes,
           isLiked: !likes.isLiked,
           totalLikes: (likes.isLiked ? (likes.totalLikes - 1) : (likes.totalLikes) + 1),
         });
@@ -41,6 +43,55 @@ export default function Likes({ postId }) {
       });
   }
 
+  function tooltipMessage({ isLiked, latestLikes, totalLikes }) {
+    let message = '';
+    let namedLikes = 0;
+
+    if (!totalLikes) return '';
+
+    if (isLiked) {
+      namedLikes += 1;
+
+      switch (totalLikes) {
+        case 1:
+          message = 'You';
+          break;
+
+        case 2:
+          message = `You and ${latestLikes[0]?.userName}`;
+          break;
+
+        case 3:
+          message = `You, ${latestLikes[0]?.userName} and 1 other person`;
+          break;
+
+        default:
+          namedLikes += 1;
+          message = `You, ${latestLikes[0]?.userName} and ${totalLikes - namedLikes} other people`;
+      }
+    } else {
+      switch (totalLikes) {
+        case 1:
+          message = `${latestLikes[0]?.userName}`;
+          break;
+
+        case 2:
+          message += `${latestLikes[0]?.userName} and ${latestLikes[1]?.userName}`;
+          break;
+
+        case 3:
+          message += `${latestLikes[0]?.userName}, ${latestLikes[1]?.userName} and 1 other person`;
+          break;
+
+        default:
+          namedLikes += 1;
+          message += `${latestLikes[0]?.userName}, ${latestLikes[1]?.userName} and ${totalLikes - namedLikes} other people`;
+      }
+    }
+
+    return message;
+  }
+
   useEffect(() => {
     retrieveLikes(postId);
   }, []);
@@ -48,6 +99,7 @@ export default function Likes({ postId }) {
   return (
     <LikesContainer>
       <LikesButton
+        type="button"
         disabled={isLoading}
         isLiked={likes.isLiked}
         isLoading={isLoading}
@@ -55,10 +107,15 @@ export default function Likes({ postId }) {
       >
         {likes.isLiked ? <AiFillHeart /> : <AiOutlineHeart />}
       </LikesButton>
-      <p>
+      <p
+        data-tooltip-id="likes-tooltip"
+        data-tooltip-content={tooltipMessage(likes)}
+        data-tooltip-place="bottom"
+      >
         {likes.totalLikes}
         {likes.totalLikes === 1 ? ' like' : ' likes'}
       </p>
+      <Tooltip id="likes-tooltip" />
     </LikesContainer>
   );
 }
