@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { DebounceInput } from 'react-debounce-input';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import Context from '../../Context';
 
 export default function SearchBar() {
   const [form, setForm] = useState('');
@@ -12,6 +13,8 @@ export default function SearchBar() {
   const inputRef = useRef(null);
 
   const navigate = useNavigate();
+
+  const { token } = useContext(Context);
 
   async function searchUsers(e) {
     setForm(e.target.value);
@@ -21,17 +24,17 @@ export default function SearchBar() {
     }
 
     const params = { params: { name: e.target.value } };
-
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = `${process.env.REACT_APP_API_URL}/search/user`;
 
-    axios
-      .get(url, params)
-      .then((res) => {
-        setUsers(res.data);
-      })
-      .catch(() => {
-        setForm('');
-      });
+    try {
+      const res = await axios.get(url, { ...config, ...params });
+      setUsers(res.data);
+    } catch (error) {
+      setForm('');
+    }
   }
 
   function searchResultsPosition() {

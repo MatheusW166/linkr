@@ -51,9 +51,7 @@ export default function Header() {
         )}
       </div>
       <MobileSearchBarDisplay>
-        <MobileAbsolute>
-          <SearchBar />
-        </MobileAbsolute>
+        <MobileAbsolute />
       </MobileSearchBarDisplay>
     </>
   );
