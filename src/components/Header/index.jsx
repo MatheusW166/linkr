@@ -51,7 +51,9 @@ export default function Header() {
         )}
       </div>
       <MobileSearchBarDisplay>
-        <MobileAbsolute />
+        <MobileAbsolute>
+          <SearchBar />
+        </MobileAbsolute>
       </MobileSearchBarDisplay>
     </>
   );
@@ -65,7 +67,8 @@ const DesktopSearchBarDisplay = styled.div`
 `;
 
 const MobileSearchBarDisplay = styled.div`
-position: relative;`;
+  position: relative;
+`;
 
 const MobileAbsolute = styled.div`
   top: 82px;

@@ -1,16 +1,16 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { DebounceInput } from 'react-debounce-input';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { HiMagnifyingGlass } from 'react-icons/hi2';
 import Context from '../../Context';
 
 export default function SearchBar() {
   const [form, setForm] = useState('');
   const [users, setUsers] = useState([]);
-  const inputRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -37,40 +37,22 @@ export default function SearchBar() {
     }
   }
 
-  function searchResultsPosition() {
-    const userRect = inputRef.current.getBoundingClientRect();
-    const top = userRect.bottom;
-    const { left } = userRect;
-    const { width } = userRect;
-    const position = 'absolute';
-    const backgroundColor = 'white';
-    const borderRadius = '5px';
-    const border = 'solid 1px';
-    return {
-      top,
-      left,
-      width,
-      position,
-      backgroundColor,
-      borderRadius,
-      border,
-    };
-  }
-
   return (
     <SearchBarContainer>
       <DebounceInput
         // eslint-disable-next-line no-use-before-define
         element={StyledInput}
         type="text"
-        placeholder="Search for people &#128269;"
+        placeholder="Search for people"
         minLength={3}
         debounceTimeout={300}
         onChange={(e) => searchUsers(e)}
-        inputRef={inputRef}
       />
+      <GlassEmoji>
+        <HiMagnifyingGlass />
+      </GlassEmoji>
       {users.length > 0 && form.length !== 0 ? (
-        <div style={{ ...searchResultsPosition() }}>
+        <SearchResultsBox>
           <ul>
             {users.map((user) => (
               <Item
@@ -80,18 +62,27 @@ export default function SearchBar() {
                 }}
               >
                 <img src={user.photo} alt={user.name} />
-                <p>{user.name}</p>
+                <p>
+                  {user.name}
+                </p>
               </Item>
             ))}
           </ul>
-        </div>
+        </SearchResultsBox>
       ) : undefined}
     </SearchBarContainer>
   );
 }
 
+const GlassEmoji = styled.div`
+  position: absolute;
+  right: 13px;
+  top: 15px;
+  color: black;
+`;
+
 const StyledInput = styled.input`
-  width: 100%;
+  width: inherit;
   height: 45px;
   background: #ffffff;
   border-radius: 8px;
@@ -102,9 +93,16 @@ const StyledInput = styled.input`
   padding-left: 10px;
 `;
 
+const SearchResultsBox = styled.div`
+  position: absolute;
+  width: inherit;
+  border-radius: 8px;
+  background-color: #E7E7E7;
+`;
+
 const SearchBarContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  position: relative;
 `;
 
 const Item = styled.li`
@@ -117,6 +115,7 @@ const Item = styled.li`
   cursor: pointer;
   &:hover {
     background-color: #f2f2f2;
+    border-radius: 8px;
   }
   img {
     width: 39px;
@@ -126,6 +125,6 @@ const Item = styled.li`
     object-fit: cover;
   }
   p {
-    color: black;
+    color: #515151;
   }
 `;
