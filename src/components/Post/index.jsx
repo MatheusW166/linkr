@@ -10,6 +10,7 @@ import LinkPreview from '../LinkPreview';
 import ModalCustom from '../ModalCustom';
 import { useMutation } from '../../hooks/request.hooks';
 import { deletePost, editPost } from '../../services/api/posts.services';
+import Likes from '../Likes';
 
 export default function Post({
   postId,
@@ -95,7 +96,10 @@ export default function Post({
           onClickDelete={openModal}
           onClickEdit={toggleEdition}
         />
-        <UserAvatarStyled src={userImageUrl} alt="avatar" />
+        <div>
+          <UserAvatarStyled src={userImageUrl} alt="avatar" />
+          <Likes postId={postId} />
+        </div>
         <div>
           <p>{userName}</p>
           <EditableText
