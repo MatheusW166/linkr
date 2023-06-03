@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 export default function SearchBar() {
   const [form, setForm] = useState('');
   const [users, setUsers] = useState([]);
-  const searchRef = useRef(null);
+  const inputRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -35,14 +35,14 @@ export default function SearchBar() {
   }
 
   function searchResultsPosition() {
-    const userRect = searchRef.current.getBoundingClientRect();
-    const top = userRect.bottom - 7;
+    const userRect = inputRef.current.getBoundingClientRect();
+    const top = userRect.bottom;
     const { left } = userRect;
     const { width } = userRect;
     const position = 'absolute';
     const backgroundColor = 'white';
     const borderRadius = '5px';
-    const border = 'solid 1px rgba(0, 0, 0, 0.1)';
+    const border = 'solid 1px';
     return {
       top,
       left,
@@ -64,7 +64,7 @@ export default function SearchBar() {
         minLength={3}
         debounceTimeout={300}
         onChange={(e) => searchUsers(e)}
-        inputRef={searchRef}
+        inputRef={inputRef}
       />
       {users.length > 0 && form.length !== 0 ? (
         <div style={{ ...searchResultsPosition() }}>
@@ -88,8 +88,7 @@ export default function SearchBar() {
 }
 
 const StyledInput = styled.input`
-  z-index: 1;
-  width: 563px;
+  width: 100%;
   height: 45px;
   background: #ffffff;
   border-radius: 8px;
