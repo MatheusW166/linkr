@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { PrimaryButtonStyled, UserAvatarStyled } from '../../styled';
 import {
   CreatePostFormStyled,
@@ -6,12 +6,15 @@ import {
   CreatePostStyled,
   CreatePostTextAreaStyled,
 } from './styled';
+import Context from '../../Context';
 
 export default function CreatePost({ onSubmit, loading = false }) {
+  const { user } = useContext(Context);
+
   return (
     <CreatePostStyled>
       <UserAvatarStyled
-        src="https://t.ctcdn.com.br/zchZha9msNRJoTyopHRHTgEJ5Iw=/1056x594/smart/i603337.jpeg"
+        src={user?.photo}
         alt="avatar"
       />
       <div>

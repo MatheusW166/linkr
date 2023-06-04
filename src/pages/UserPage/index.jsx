@@ -1,11 +1,12 @@
 /* eslint-disable no-alert */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { TitleH2Styled } from '../../styled';
 import { MainStyled, PageContainerStyled } from './styled';
 import Header from '../../components/Header';
 import PostsList from '../../components/PostsList';
+import Context from '../../Context';
 
 export default function UserPage() {
   const { id } = useParams();
@@ -15,9 +16,15 @@ export default function UserPage() {
   const [errorPosts, setErrorPosts] = useState(null);
   const [user, setUser] = useState(null);
 
+  const { token } = useContext(Context);
+
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/search/user/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}/search/user/${id}`, config)
       .then((res) => {
         setUser(res.data);
       })
@@ -25,7 +32,7 @@ export default function UserPage() {
       });
 
     axios
-      .get(`${process.env.REACT_APP_API_URL}/search/posts/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}/search/posts/${id}`, config)
       .then((res) => {
         setPosts(res.data);
         setLoadingPosts(null);
