@@ -25,7 +25,7 @@ export default function Trending() {
   }, []);
 
   return (
-    <TrendingStyled>
+    <TrendingStyled data-test="trending">
       <TitleH4Styled>
         trending
       </TitleH4Styled>
@@ -34,6 +34,7 @@ export default function Trending() {
         <Link
           key={hashtag.hashtag}
           to={`/hashtag/${hashtag.hashtag}`}
+          data-test="hashtag"
         >
           <p>
             #
