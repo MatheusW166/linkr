@@ -72,6 +72,8 @@ const DesktopSearchBarDisplay = styled.div`
 
 const MobileSearchBarDisplay = styled.div`
   position: relative;
+  margin-right: 24px;
+  margin-left: 24px;
 `;
 
 const MobileAbsolute = styled.div`

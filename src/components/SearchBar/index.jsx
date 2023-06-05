@@ -47,6 +47,7 @@ export default function SearchBar() {
         minLength={3}
         debounceTimeout={300}
         onChange={(e) => searchUsers(e)}
+        data-test="search"
       />
       <GlassEmoji>
         <HiMagnifyingGlass />
@@ -60,6 +61,7 @@ export default function SearchBar() {
                 onClick={() => {
                   navigate(`/user/${user.id}`);
                 }}
+                data-test="user-search"
               >
                 <img src={user.photo} alt={user.name} />
                 <p>
