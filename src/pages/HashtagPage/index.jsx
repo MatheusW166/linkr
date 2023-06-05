@@ -44,7 +44,7 @@ export default function HashtagPage() {
       <Header />
       <PageContainerStyled>
         <MainStyled>
-          <TitleH2Styled>
+          <TitleH2Styled datatest="hashtag-title">
             #
             {hashtag}
           </TitleH2Styled>

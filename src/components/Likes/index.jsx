@@ -104,6 +104,7 @@ export default function Likes({ postId }) {
         isLiked={likes.isLiked}
         isLoading={isLoading}
         onClick={() => addLike(postId)}
+        data-test="like-btn"
       >
         {likes.isLiked ? <AiFillHeart /> : <AiOutlineHeart />}
       </LikesButton>
@@ -111,11 +112,15 @@ export default function Likes({ postId }) {
         data-tooltip-id="likes-tooltip"
         data-tooltip-content={tooltipMessage(likes)}
         data-tooltip-place="bottom"
+        data-test="counter"
       >
         {likes.totalLikes}
         {likes.totalLikes === 1 ? ' like' : ' likes'}
       </p>
-      <Tooltip id="likes-tooltip" />
+      <Tooltip
+        id="likes-tooltip"
+        data-test="tooltip"
+      />
     </LikesContainer>
   );
 }

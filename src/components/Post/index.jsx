@@ -99,7 +99,7 @@ export default function Post({
         isOpen={isModalOpen}
         isLoading={loadingDelete}
       />
-      <PostStyled>
+      <PostStyled data-test="post">
         <PostActions
           isPostOwner={isPostOwner}
           onClickDelete={openModal}
