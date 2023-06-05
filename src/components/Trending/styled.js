@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
 const TrendingStyled = styled.div`
-  height: 490px;
-  width: 300px;
-  overflow: hidden;
+  block-size: fit-content;
+  width: 300px;  
   display: flex;
   flex-direction: column;
-  padding: 16px 0px;
+  padding: 20px 0px;
   background-color: #171717;
   border-radius: 16px;
   gap: 16px;
@@ -24,6 +23,7 @@ const TrendingStyled = styled.div`
     color: #FFFFFF;
     line-height: 22px;
     margin: 0 16px;
+    overflow-wrap: break-word;
   }
 
   @media screen and (max-width: 937px) {
