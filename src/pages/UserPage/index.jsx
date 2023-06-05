@@ -3,10 +3,16 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { TitleH2Styled } from '../../styled';
-import { MainStyled, PageContainerStyled } from './styled';
+import {
+  MainStyled,
+  PageContainerStyled,
+  SectionStyled,
+  PostsStyled,
+} from './styled';
 import Header from '../../components/Header';
 import PostsList from '../../components/PostsList';
 import Context from '../../Context';
+import TrendingStyled from '../../components/Trending';
 
 export default function UserPage() {
   const { id } = useParams();
@@ -52,7 +58,12 @@ export default function UserPage() {
             {user ? user?.name : 'User'}
             &apos;s posts
           </TitleH2Styled>
-          <PostsList posts={posts} error={errorPosts} loading={loadingPosts} />
+          <SectionStyled>
+            <PostsStyled>
+              <PostsList posts={posts} error={errorPosts} loading={loadingPosts} />
+            </PostsStyled>
+            <TrendingStyled />
+          </SectionStyled>
         </MainStyled>
       </PageContainerStyled>
     </>

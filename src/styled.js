@@ -47,6 +47,13 @@ export const TitleH3Styled = styled.h3`
   }
 `;
 
+export const TitleH4Styled = styled.h4`
+  font-family: 'Oswald';
+  font-weight: 700;
+  font-size: 27px;
+  margin: 0px 16px;
+`;
+
 export const ErrorMessageStyled = styled.h3`
   font-size: 16px;
   font-weight: 700;

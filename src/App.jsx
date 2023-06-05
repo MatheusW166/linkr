@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Context from './Context';
+import HashtagPage from './pages/HashtagPage';
 import SignInPage from './pages/SignIn';
 import SignUpPage from './pages/SignUpPage';
-import Context from './Context';
 import Timeline from './pages/Timeline';
 import UserPage from './pages/UserPage';
 
@@ -26,6 +27,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<SignInPage />} />
+          <Route path="/hashtag/:hashtag" element={<HashtagPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/timeline" element={<Timeline />} />
           <Route path="/user/:id" element={<UserPage />} />

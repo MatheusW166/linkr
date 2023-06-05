@@ -1,12 +1,18 @@
 /* eslint-disable no-alert */
 import React from 'react';
-import { MainStyled, PageContainerStyled } from './styled';
+import {
+  MainStyled,
+  PageContainerStyled,
+  SectionStyled,
+  PostsStyled,
+} from './styled';
 import { TitleH2Styled } from '../../styled';
 import CreatePost from '../../components/CreatePost';
 import Header from '../../components/Header';
 import { useMutation, useRequest } from '../../hooks/request.hooks';
 import { publishPost, searchPosts } from '../../services/api/timeline.services';
 import PostsList from '../../components/PostsList';
+import TrendingStyled from '../../components/Trending';
 
 export default function Timeline() {
   const {
@@ -42,13 +48,18 @@ export default function Timeline() {
       <PageContainerStyled>
         <MainStyled>
           <TitleH2Styled>timeline</TitleH2Styled>
-          <CreatePost loading={loadingPublish} onSubmit={handlePostSubmit} />
-          <PostsList
-            posts={posts}
-            error={errorPosts}
-            loading={loadingPosts}
-            refreshPosts={refreshPosts}
-          />
+          <SectionStyled>
+            <PostsStyled>
+              <CreatePost loading={loadingPublish} onSubmit={handlePostSubmit} />
+              <PostsList
+                posts={posts}
+                error={errorPosts}
+                loading={loadingPosts}
+                refreshPosts={refreshPosts}
+              />
+            </PostsStyled>
+            <TrendingStyled />
+          </SectionStyled>
         </MainStyled>
       </PageContainerStyled>
     </>
