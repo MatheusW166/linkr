@@ -30,8 +30,6 @@ export default function HashtagPage() {
       })
 
       .catch((error) => {
-        // eslint-disable-next-line no-alert
-        alert(error.response.data);
         setErrorPosts(error);
         setLoadingPosts(false);
       });
