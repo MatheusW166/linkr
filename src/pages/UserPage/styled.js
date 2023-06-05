@@ -11,13 +11,34 @@ export const PageContainerStyled = styled.div`
 export const MainStyled = styled.main`
   display: flex;
   flex-direction: column;
-  width: min(616px, 100%);
   gap: 40px;
   margin: 0 auto;
+
+  & > h3 {
+    margin: 0 24px;
+  }
 
   h2 {
     @media screen and (max-width: 616px) {
       margin-left: 24px;
     }
   }
+
+  @media screen and (max-width: 616px) {
+      width: 100%;
+    }
+`;
+
+export const SectionStyled = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+`;
+
+export const PostsStyled = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 611px;
+  gap: 30px;
 `;

@@ -4,7 +4,13 @@ import { useParams } from 'react-router-dom';
 import Header from '../../components/Header';
 import PostsList from '../../components/PostsList';
 import { TitleH2Styled } from '../../styled';
-import { MainStyled, PageContainerStyled } from './styled';
+import {
+  MainStyled,
+  PageContainerStyled,
+  SectionStyled,
+  PostsStyled,
+} from './styled';
+import TrendingStyled from '../../components/Trending';
 
 export default function HashtagPage() {
   const { hashtag } = useParams();
@@ -44,11 +50,16 @@ export default function HashtagPage() {
             #
             {hashtag}
           </TitleH2Styled>
-          <PostsList
-            error={errorPosts}
-            loading={loadingPosts}
-            posts={posts}
-          />
+          <SectionStyled>
+            <PostsStyled>
+              <PostsList
+                error={errorPosts}
+                loading={loadingPosts}
+                posts={posts}
+              />
+            </PostsStyled>
+            <TrendingStyled />
+          </SectionStyled>
         </MainStyled>
       </PageContainerStyled>
     </>
