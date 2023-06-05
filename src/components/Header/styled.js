@@ -28,6 +28,7 @@ export const UserDropdownStyled = styled.div`
   }
 `;
 export const OutButton = styled.button`
+  z-index: 1;
   position: fixed;
   width: 140px;
   height: 40px;

@@ -45,6 +45,7 @@ export default function ModalCustom({
           disabled={isLoading}
           type="button"
           onClick={onCancel}
+          data-test="cancel"
         >
           {cancelText}
         </SecondaryButtonStyled>
@@ -52,6 +53,7 @@ export default function ModalCustom({
           disabled={isLoading}
           type="button"
           onClick={onConfirm}
+          data-test="confirm"
         >
           {isLoading ? <LoaderStyled /> : confirmText}
         </PrimaryButtonStyled>

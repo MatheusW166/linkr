@@ -19,7 +19,7 @@ export default function EditableText({
     }
   };
 
-  if (!isEditing) return <p ref={textRef}>{text}</p>;
+  if (!isEditing) return <p data-test="description" ref={textRef}>{text}</p>;
 
   return (
     <EditableTextStyled
@@ -29,6 +29,7 @@ export default function EditableText({
       defaultValue={defaultInputValue}
       height={textRef.current?.clientHeight}
       onKeyDown={handleKeyDown}
+      data-test="edit-input"
     />
   );
 }
