@@ -70,14 +70,14 @@ const DesktopSearchBarDisplay = styled.div`
 
 const MobileSearchBarDisplay = styled.div`
   position: relative;
+  margin-right: 24px;
+  margin-left: 24px;
 `;
 
 const MobileAbsolute = styled.div`
   top: 82px;
   position: absolute;
   width: 100%;
-  margin-right: 24px;
-  margin-left: 24px;
   @media (min-width: 850px) {
     display: none;
   }
