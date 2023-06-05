@@ -45,11 +45,13 @@ export default function Header() {
             ) : (
               <MdKeyboardArrowUp />
             )}
-            <UserAvatarStyled src={user?.photo} alt="avatar" />
+            <UserAvatarStyled data-test="avatar" src={user?.photo} alt="avatar" />
           </UserDropdownStyled>
         </HeaderStyled>
         {logOutButton === false ? null : (
-          <OutButton onClick={() => logOut()}>Log Out</OutButton>
+          <div data-test="menu">
+            <OutButton data-test="logout" onClick={() => logOut()}>Log Out</OutButton>
+          </div>
         )}
       </div>
       <MobileSearchBarDisplay>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ErrorMessageStyled } from '../../styled';
+import { ErrorMessageStyled, TitleH3Styled } from '../../styled';
 import Post from '../Post';
 import PostsUlStyled from './styled';
 
@@ -19,12 +19,12 @@ export default function PostsList({
   }
 
   if (posts?.length === 0) {
-    return <h3>There are no posts yet.</h3>;
+    return <TitleH3Styled data-test="message">There are no posts yet.</TitleH3Styled>;
   }
 
   return (
     <>
-      {loading && <h3>Loading...</h3>}
+      {loading && <TitleH3Styled>Loading...</TitleH3Styled>}
       <PostsUlStyled>
         {posts?.map((post) => (
           <li key={post.id}>
