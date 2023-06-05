@@ -7,8 +7,8 @@ export default function highlightHashtags(text) {
     if (word[0] === '#') {
       const hashtag = word.substring(1);
       return (
-        <Link to={`/hashtag/${hashtag}`}>
-          <strong key={idx}>
+        <Link key={idx} to={`/hashtag/${hashtag}`}>
+          <strong>
             {` #${hashtag} `}
           </strong>
         </Link>

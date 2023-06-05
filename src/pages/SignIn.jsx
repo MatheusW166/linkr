@@ -1,7 +1,11 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Context from '../Context';
-import { InputContainer, MainContainer, PageTitle } from '../components/InitialScreen/styled';
+import {
+  InputContainer,
+  MainContainer,
+  PageTitle,
+} from '../components/InitialScreen/styled';
 import client from '../services/api/api.client';
 
 export default function SignInPage() {
@@ -29,9 +33,8 @@ export default function SignInPage() {
   function signIn(event) {
     event.preventDefault();
     setIsSubmitting(true);
-    const promise = client.post('/', signInTemplate);
-
-    promise
+    client
+      .post('/', signInTemplate)
       .then((res) => {
         setIsSubmitting(false);
         setToken(res.data.token);
@@ -43,7 +46,6 @@ export default function SignInPage() {
       })
       .catch((error) => {
         setIsSubmitting(false);
-        // eslint-disable-next-line no-alert
         alert(error.response.data);
       });
   }
@@ -68,9 +70,13 @@ export default function SignInPage() {
             type="password"
             onChange={(event) => setPassword(event.target.value)}
           />
-          <button disabled={isSubmitting} type="submit" onClick={signIn}>Log In</button>
+          <button disabled={isSubmitting} type="submit" onClick={signIn}>
+            Log In
+          </button>
         </form>
-        <button type="button" onClick={() => navigate('/sign-up')}> First time? Create an account! </button>
+        <button type="button" onClick={() => navigate('/sign-up')}>
+          First time? Create an account!
+        </button>
       </InputContainer>
     </MainContainer>
   );

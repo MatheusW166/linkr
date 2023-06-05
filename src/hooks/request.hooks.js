@@ -6,7 +6,6 @@ export function useRequest(promise) {
   const [error, setError] = useState(null);
 
   const refresh = useCallback(() => {
-    setData(null);
     setError(null);
     setLoading(true);
     promise()

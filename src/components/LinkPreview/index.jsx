@@ -2,15 +2,20 @@ import React, { useEffect, useState } from 'react';
 import scrapUrl from '../../services/scraper/scraper.services';
 import LinkPreviewStyled from './styled';
 
+const storedPreviews = {};
+
 export default function LinkPreview({ url }) {
-  const [preview, setPreview] = useState();
+  const [preview, setPreview] = useState(storedPreviews[url]);
 
   useEffect(() => {
-    if (!url) {
+    if (!url || storedPreviews[url]) {
       return;
     }
     scrapUrl({ url })
-      .then(setPreview)
+      .then((prev) => {
+        setPreview(prev);
+        storedPreviews[url] = prev;
+      })
       .catch(() => setPreview(null));
   }, []);
 
