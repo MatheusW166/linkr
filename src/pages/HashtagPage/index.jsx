@@ -39,7 +39,7 @@ export default function HashtagPage() {
 
   useEffect(() => {
     retrievePosts(hashtag);
-  }, []);
+  }, [hashtag]);
 
   return (
     <>
