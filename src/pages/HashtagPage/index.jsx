@@ -12,7 +12,6 @@ export default function HashtagPage() {
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [posts, setPosts] = useState(null);
   const [errorPosts, setErrorPosts] = useState(null);
-  const [user, setUser] = useState(null);
 
   const { REACT_APP_API_URL } = process.env;
   const token = localStorage.getItem('token');

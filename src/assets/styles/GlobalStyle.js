@@ -4,6 +4,7 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+
   body{
     background-color: #333333;
     color: #fff;
@@ -19,12 +20,14 @@ const GlobalStyle = createGlobalStyle`
   color: inherit;
   text-align: inherit;
 }
-  button {
+
+  button, a {
     cursor: pointer;
     :hover {
       opacity: 0.8;
     }
   }
+
   :disabled {
     opacity: 0.4;
   }
