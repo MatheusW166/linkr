@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Context from '../../Context';
 import client from '../../services/api/api.client';
@@ -33,7 +33,9 @@ export default function Header() {
     <>
       <div>
         <HeaderStyled>
-          <TitleH1Styled>linkr</TitleH1Styled>
+          <Link to="/timeline">
+            <TitleH1Styled>linkr</TitleH1Styled>
+          </Link>
           <DesktopSearchBarDisplay>
             <SearchBar />
           </DesktopSearchBarDisplay>
