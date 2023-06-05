@@ -12,7 +12,7 @@ export default function CreatePost({ onSubmit, loading = false }) {
   const { user } = useContext(Context);
 
   return (
-    <CreatePostStyled>
+    <CreatePostStyled data-test="publish-box">
       <UserAvatarStyled
         src={user?.photo}
         alt="avatar"
@@ -26,14 +26,16 @@ export default function CreatePost({ onSubmit, loading = false }) {
             type="url"
             required
             disabled={loading}
+            data-test="link"
           />
           <CreatePostTextAreaStyled
             name="description"
             placeholder="Type here!"
             rows={4}
             disabled={loading}
+            data-test="description"
           />
-          <PrimaryButtonStyled disabled={loading} type="submit">
+          <PrimaryButtonStyled data-test="publish-btn" disabled={loading} type="submit">
             {loading ? 'Publishing...' : 'Publish'}
           </PrimaryButtonStyled>
         </CreatePostFormStyled>

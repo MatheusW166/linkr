@@ -60,26 +60,30 @@ export default function SignUpPage() {
             placeholder="e-mail"
             type="email"
             onChange={(event) => setEmail(event.target.value)}
+            data-test="email"
           />
           <input
             required
             placeholder="password"
             type="password"
             onChange={(event) => setPassword(event.target.value)}
+            data-test="password"
           />
           <input
             required
             placeholder="username"
             type="text"
             onChange={(event) => setName(event.target.value)}
+            data-test="username"
           />
           <input
             required
             placeholder="picture url"
             type="url"
             onChange={(event) => setPhoto(event.target.value)}
+            data-test="picture-url"
           />
-          <button type="submit" onClick={createAccount}>
+          <button data-test="sign-up-btn" type="submit" onClick={createAccount}>
             Sign Up
           </button>
         </form>
@@ -87,6 +91,7 @@ export default function SignUpPage() {
           disabled={isSubmitting}
           type="button"
           onClick={() => navigate('/')}
+          data-test="login-link"
         >
           Switch back to log in
         </button>

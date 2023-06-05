@@ -20,7 +20,7 @@ export default function LinkPreview({ url }) {
   }, []);
 
   return (
-    <LinkPreviewStyled href={url} target="_blank">
+    <LinkPreviewStyled data-test="link" href={url} target="_blank">
       <div>
         {preview?.title && <h3>{preview.title}</h3>}
         {preview?.description && <p>{preview.description}</p>}

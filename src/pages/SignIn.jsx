@@ -63,18 +63,20 @@ export default function SignInPage() {
             placeholder="E-mail"
             type="email"
             onChange={(event) => setEmail(event.target.value)}
+            data-test="email"
           />
           <input
             required
             placeholder="Senha"
             type="password"
             onChange={(event) => setPassword(event.target.value)}
+            data-test="password"
           />
-          <button disabled={isSubmitting} type="submit" onClick={signIn}>
+          <button data-test="login-btn" disabled={isSubmitting} type="submit" onClick={signIn}>
             Log In
           </button>
         </form>
-        <button type="button" onClick={() => navigate('/sign-up')}>
+        <button data-test="sign-up-link" type="button" onClick={() => navigate('/sign-up')}>
           First time? Create an account!
         </button>
       </InputContainer>
