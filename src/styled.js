@@ -58,6 +58,7 @@ export const ErrorMessageStyled = styled.h3`
   font-size: 16px;
   font-weight: 700;
   color: #ef4444;
+  text-align: center;
 `;
 
 export const PrimaryButtonStyled = styled.button`

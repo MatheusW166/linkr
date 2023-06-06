@@ -1,6 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { InputContainer, MainContainer, PageTitle } from '../components/InitialScreen/styled';
+import {
+  InputContainer,
+  MainContainer,
+  PageTitle,
+} from '../components/InitialScreen/styled';
 import client from '../services/api/api.client';
 
 export default function SignUpPage() {
@@ -31,18 +35,16 @@ export default function SignUpPage() {
   function createAccount(event) {
     event.preventDefault();
     setIsSubmitting(true);
-    const promise = client.post('/sign-up', templateSignUp);
-
-    promise.then(() => {
-      setIsSubmitting(false);
-      navigate('/');
-    });
-
-    promise.catch((error) => {
-      setIsSubmitting(false);
-      // eslint-disable-next-line no-alert
-      alert(error.response.data);
-    });
+    client
+      .post('/sign-up', templateSignUp)
+      .then(() => {
+        setIsSubmitting(false);
+        navigate('/');
+      })
+      .catch((error) => {
+        setIsSubmitting(false);
+        alert(error.response.data);
+      });
   }
 
   return (
@@ -58,28 +60,41 @@ export default function SignUpPage() {
             placeholder="e-mail"
             type="email"
             onChange={(event) => setEmail(event.target.value)}
+            data-test="email"
           />
           <input
             required
             placeholder="password"
             type="password"
             onChange={(event) => setPassword(event.target.value)}
+            data-test="password"
           />
           <input
             required
             placeholder="username"
             type="text"
             onChange={(event) => setName(event.target.value)}
+            data-test="username"
           />
           <input
             required
             placeholder="picture url"
             type="url"
             onChange={(event) => setPhoto(event.target.value)}
+            data-test="picture-url"
           />
-          <button type="submit" onClick={createAccount}>Sign Up</button>
+          <button data-test="sign-up-btn" type="submit" onClick={createAccount}>
+            Sign Up
+          </button>
         </form>
-        <button disabled={isSubmitting} type="button" onClick={() => navigate('/')}> Switch back to log in </button>
+        <button
+          disabled={isSubmitting}
+          type="button"
+          onClick={() => navigate('/')}
+          data-test="login-link"
+        >
+          Switch back to log in
+        </button>
       </InputContainer>
     </MainContainer>
   );

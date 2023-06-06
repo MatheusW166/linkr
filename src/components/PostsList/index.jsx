@@ -1,5 +1,5 @@
 import React from 'react';
-import { ErrorMessageStyled } from '../../styled';
+import { ErrorMessageStyled, TitleH3Styled } from '../../styled';
 import Post from '../Post';
 import PostsUlStyled from './styled';
 
@@ -9,8 +9,6 @@ export default function PostsList({
   loading,
   error,
 }) {
-  if (loading) return <h3>Loading...</h3>;
-
   if (error) {
     return (
       <ErrorMessageStyled>
@@ -20,23 +18,28 @@ export default function PostsList({
     );
   }
 
-  if (posts?.length === 0) return <h3>There are no posts yet.</h3>;
+  if (posts?.length === 0) {
+    return <TitleH3Styled data-test="message">There are no posts yet.</TitleH3Styled>;
+  }
 
   return (
-    <PostsUlStyled>
-      {posts?.map((post) => (
-        <li key={post.id}>
-          <Post
-            postId={post.id}
-            userName={post.userName}
-            userId={post.userId}
-            userImageUrl={post.userImageUrl}
-            description={post.description}
-            url={post.url}
-            refreshPosts={refreshPosts}
-          />
-        </li>
-      ))}
-    </PostsUlStyled>
+    <>
+      {loading && <TitleH3Styled>Loading...</TitleH3Styled>}
+      <PostsUlStyled>
+        {posts?.map((post) => (
+          <li key={post.id}>
+            <Post
+              postId={post.id}
+              userName={post.userName}
+              userId={post.userId}
+              userImageUrl={post.userImageUrl}
+              description={post.description}
+              url={post.url}
+              refreshPosts={refreshPosts}
+            />
+          </li>
+        ))}
+      </PostsUlStyled>
+    </>
   );
 }

@@ -110,7 +110,7 @@ export default function Post({
           <Likes postId={postId} />
         </div>
         <div>
-          <p onClick={handleClick} style={{ cursor: 'pointer' }}>{userName}</p>
+          <p data-test="username" onClick={handleClick} style={{ cursor: 'pointer' }}>{userName}</p>
           <EditableText
             text={postDescription}
             defaultInputValue={rawDescription}
@@ -131,8 +131,8 @@ export function PostActions({ isPostOwner, onClickDelete, onClickEdit }) {
   return (
     isPostOwner && (
       <PostActionsStyled>
-        <MdEdit onClick={onClickEdit} />
-        <AiFillDelete onClick={onClickDelete} />
+        <MdEdit data-test="edit-btn" onClick={onClickEdit} />
+        <AiFillDelete data-test="delete-btn" onClick={onClickDelete} />
       </PostActionsStyled>
     )
   );
