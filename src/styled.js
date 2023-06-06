@@ -41,8 +41,8 @@ export const TitleH2Styled = styled.h2`
     font-weight: 700;
     font-size: 14px;
     line-height: 17px;
-    color: ${({ isFollowing }) => (isFollowing ? '#FFFFFF' : '#1877F2')};
-    background-color: ${({ isFollowing }) => (isFollowing ? '#1877F2' : '#FFFFFF')};
+    color: ${({ isFollowing }) => (isFollowing ? '#1877F2' : '#FFFFFF')};
+    background-color: ${({ isFollowing }) => (isFollowing ? '#FFFFFF' : '#1877F2')};
     width: 112px;
     height: 31px;
     border-radius: 5px;
