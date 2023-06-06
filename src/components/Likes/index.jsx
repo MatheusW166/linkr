@@ -11,14 +11,18 @@ export default function Likes({ postId }) {
   const token = localStorage.getItem('token');
 
   function retrieveLikes(id) {
+    setIsLoading(true);
+
     axios.get(`${REACT_APP_API_URL}/posts/${id}/likes`, { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
         setLikes(response.data);
+        setIsLoading(false);
       })
 
       .catch((error) => {
         // eslint-disable-next-line no-alert
         alert(error.response.data);
+        setIsLoading(false);
       });
   }
 

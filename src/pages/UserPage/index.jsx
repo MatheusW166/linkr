@@ -62,7 +62,9 @@ export default function UserPage() {
             <PostsStyled>
               <PostsList posts={posts} error={errorPosts} loading={loadingPosts} />
             </PostsStyled>
-            <TrendingStyled />
+            <TrendingStyled
+              posts={posts}
+            />
           </SectionStyled>
         </MainStyled>
       </PageContainerStyled>

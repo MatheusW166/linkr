@@ -58,7 +58,9 @@ export default function Timeline() {
                 refreshPosts={refreshPosts}
               />
             </PostsStyled>
-            <TrendingStyled />
+            <TrendingStyled
+              posts={posts}
+            />
           </SectionStyled>
         </MainStyled>
       </PageContainerStyled>

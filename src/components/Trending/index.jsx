@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import TrendingStyled from './styled';
 import { TitleH4Styled } from '../../styled';
 
-export default function Trending() {
+export default function Trending({ posts }) {
   const [hashtags, setHashtags] = useState([]);
   const { REACT_APP_API_URL } = process.env;
 
@@ -22,7 +22,7 @@ export default function Trending() {
 
   useEffect(() => {
     retrieveTrending();
-  }, []);
+  }, [{ posts }]);
 
   return (
     <TrendingStyled data-test="trending">
