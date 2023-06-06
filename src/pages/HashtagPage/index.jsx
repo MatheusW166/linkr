@@ -56,7 +56,9 @@ export default function HashtagPage() {
                 posts={posts}
               />
             </PostsStyled>
-            <TrendingStyled />
+            <TrendingStyled
+              posts={posts}
+            />
           </SectionStyled>
         </MainStyled>
       </PageContainerStyled>
