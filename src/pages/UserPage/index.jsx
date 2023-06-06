@@ -49,14 +49,19 @@ export default function UserPage() {
       });
   }, [id]);
 
+  const [isFollowing, setIsFollowing] = useState(true);
+
   return (
     <>
       <Header />
       <PageContainerStyled>
         <MainStyled>
-          <TitleH2Styled>
+          <TitleH2Styled isFollowing={isFollowing}>
             {user ? user?.name : 'User'}
             &apos;s posts
+            <button type="button" onClick={() => setIsFollowing(!isFollowing)}>
+              {isFollowing === true ? 'Follow' : 'Unfollow'}
+            </button>
           </TitleH2Styled>
           <SectionStyled>
             <PostsStyled>
