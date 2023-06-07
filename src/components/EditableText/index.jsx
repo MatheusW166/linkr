@@ -21,7 +21,7 @@ export default function EditableText({
 
   const moveCursorEnd = (event) => {
     const input = event.target;
-    const textLength = input.value?.length;
+    const textLength = input.value?.length ?? 0;
     input.setSelectionRange(textLength, textLength);
   };
 
