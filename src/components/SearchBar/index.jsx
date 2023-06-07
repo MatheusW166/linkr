@@ -64,9 +64,10 @@ export default function SearchBar() {
                 data-test="user-search"
               >
                 <img src={user.photo} alt={user.name} />
-                <p>
+                <h2>
                   {user.name}
-                </p>
+                  <Following>{user.followingId ? '• following' : ''}</Following>
+                </h2>
               </Item>
             ))}
           </ul>
@@ -126,7 +127,17 @@ const Item = styled.li`
     border: solid 1px;
     object-fit: cover;
   }
-  p {
+  h2 {
     color: #515151;
+    display: flex;
+    flex-direction: row;
+    gap: 7px;
   }
+`;
+
+const Following = styled.p`
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  color: #C5C5C5;
 `;
