@@ -1,14 +1,13 @@
-/* eslint-disable no-console */
 /* eslint-disable no-alert */
 import React, { useState } from 'react';
 import useInterval from 'use-interval';
-import styled from 'styled-components';
 import { BiRefresh } from 'react-icons/bi';
 import {
   MainStyled,
   PageContainerStyled,
   SectionStyled,
   PostsStyled,
+  UpdateButton
 } from './styled';
 import { TitleH2Styled } from '../../styled';
 import CreatePost from '../../components/CreatePost';
@@ -20,6 +19,8 @@ import TrendingStyled from '../../components/Trending';
 import client from '../../services/api/api.client';
 
 export default function Timeline() {
+  const [updatedPosts, setUpdatedPosts] = useState([]);
+
   const {
     data: posts,
     loading: loadingPosts,
@@ -47,20 +48,18 @@ export default function Timeline() {
     });
   };
 
-  const [updatedPosts, setUpdatedPosts] = useState([]);
+  const handleUpdatePosts = (event) => {
+    event.preventDefault();
+    refreshPosts();
+  };
 
   useInterval(() => {
-    client
-      .get('/posts')
-      .then((res) => {
-        if (res.data.length !== posts.length) {
-          console.log('not equal, update.');
-          setUpdatedPosts(res.data);
-          return;
-        }
-        console.log('equal, no update.');
-      });
-  }, 15000);
+    client.get('/posts').then((res) => {
+      if (res.data.length !== posts.length) {
+        setUpdatedPosts(res.data);
+      }
+    });
+  }, 5000);
 
   return (
     <>
@@ -70,19 +69,25 @@ export default function Timeline() {
           <TitleH2Styled>timeline</TitleH2Styled>
           <SectionStyled>
             <PostsStyled>
-              <UpdateButton update={posts && (updatedPosts.length - posts.length) > 0 && !NaN}>
-                { posts && (updatedPosts.length - posts.length) > 0 && !NaN
-                  ? (
-                    <p>
-                      {updatedPosts.length - posts.length}
-                      {' '}
-                      new posts, load more!
-                      <BiRefresh />
-                    </p>
-                  )
-                  : ''}
+              <UpdateButton
+                update={posts && updatedPosts.length - posts.length > 0 && !NaN}
+                onClick={handleUpdatePosts}
+              >
+                {posts && updatedPosts.length - posts.length > 0 && !NaN ? (
+                  <p>
+                    {updatedPosts.length - posts.length}
+                    {' '}
+                    new posts, load more!
+                    <BiRefresh />
+                  </p>
+                ) : (
+                  ''
+                )}
               </UpdateButton>
-              <CreatePost loading={loadingPublish} onSubmit={handlePostSubmit} />
+              <CreatePost
+                loading={loadingPublish}
+                onSubmit={handlePostSubmit}
+              />
               <PostsList
                 posts={posts}
                 error={errorPosts}
@@ -90,27 +95,10 @@ export default function Timeline() {
                 refreshPosts={refreshPosts}
               />
             </PostsStyled>
-            <TrendingStyled
-              posts={posts}
-            />
+            <TrendingStyled posts={posts} />
           </SectionStyled>
         </MainStyled>
       </PageContainerStyled>
     </>
   );
 }
-
-const UpdateButton = styled.button`
-  display: ${(props) => (props.update ? 'flex' : 'none')};
-  background: #1877F2;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 16px;
-  height: 61px;
-  justify-content: center;
-  align-items: center;
-  p{
-    display: flex;
-    flex-direction: row;
-    gap: 14px;
-  }
-`;
