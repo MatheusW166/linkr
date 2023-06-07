@@ -1,5 +1,6 @@
 /* eslint-disable no-alert */
-import React from 'react';
+import React, { useState } from 'react';
+import useInterval from 'use-interval';
 import {
   MainStyled,
   PageContainerStyled,
@@ -41,6 +42,13 @@ export default function Timeline() {
       },
     });
   };
+
+  const [count, setCount] = React.useState(0);
+
+  useInterval(() => {
+    setCount(count + 1);
+    console.log(count);
+  }, 1000);
 
   return (
     <>
