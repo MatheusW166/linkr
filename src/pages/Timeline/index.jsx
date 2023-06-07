@@ -8,7 +8,7 @@ import {
   PageContainerStyled,
   SectionStyled,
   PostsStyled,
-  UpdateButton
+  UpdateButton,
 } from './styled';
 import { TitleH2Styled } from '../../styled';
 import CreatePost from '../../components/CreatePost';
