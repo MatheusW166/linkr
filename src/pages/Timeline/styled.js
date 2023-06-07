@@ -53,3 +53,18 @@ export const PostsStyled = styled.div`
     border-width: 4px;
   }
 `;
+
+export const UpdateButton = styled.button`
+  display: ${(props) => (props.update ? 'flex' : 'none')};
+  background: #1877f2;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  height: 61px;
+  justify-content: center;
+  align-items: center;
+  p {
+    display: flex;
+    flex-direction: row;
+    gap: 14px;
+  }
+`;

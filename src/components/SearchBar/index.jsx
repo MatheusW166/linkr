@@ -16,10 +16,12 @@ export default function SearchBar() {
 
   const { token } = useContext(Context);
 
+  const MINIMUM_STRING_SIZE = 3;
+
   async function searchUsers(e) {
     setForm(e.target.value);
 
-    if (e.target.value.length < 3) {
+    if (e.target.value.length < MINIMUM_STRING_SIZE) {
       return;
     }
 
@@ -44,7 +46,7 @@ export default function SearchBar() {
         element={StyledInput}
         type="text"
         placeholder="Search for people"
-        minLength={3}
+        minLength={MINIMUM_STRING_SIZE}
         debounceTimeout={300}
         onChange={(e) => searchUsers(e)}
         data-test="search"
@@ -64,9 +66,10 @@ export default function SearchBar() {
                 data-test="user-search"
               >
                 <img src={user.photo} alt={user.name} />
-                <p>
+                <h2>
                   {user.name}
-                </p>
+                  <Following>{user.followingId ? '• following' : ''}</Following>
+                </h2>
               </Item>
             ))}
           </ul>
@@ -100,6 +103,8 @@ const SearchResultsBox = styled.div`
   width: inherit;
   border-radius: 8px;
   background-color: #E7E7E7;
+  block-size: fit-content;
+  z-index: 1;
 `;
 
 const SearchBarContainer = styled.div`
@@ -126,7 +131,17 @@ const Item = styled.li`
     border: solid 1px;
     object-fit: cover;
   }
-  p {
+  h2 {
     color: #515151;
+    display: flex;
+    flex-direction: row;
+    gap: 7px;
   }
+`;
+
+const Following = styled.p`
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  color: #C5C5C5;
 `;
