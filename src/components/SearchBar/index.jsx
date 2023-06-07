@@ -19,7 +19,8 @@ export default function SearchBar() {
   async function searchUsers(e) {
     setForm(e.target.value);
 
-    if (e.target.value.length < 3) {
+    // CHANGE!!!!!
+    if (e.target.value.length < 1) {
       return;
     }
 
@@ -44,7 +45,8 @@ export default function SearchBar() {
         element={StyledInput}
         type="text"
         placeholder="Search for people"
-        minLength={3}
+        // CHANGE!!!!!
+        minLength={1}
         debounceTimeout={300}
         onChange={(e) => searchUsers(e)}
         data-test="search"
@@ -101,6 +103,8 @@ const SearchResultsBox = styled.div`
   width: inherit;
   border-radius: 8px;
   background-color: #E7E7E7;
+  block-size: fit-content;
+  z-index: 1;
 `;
 
 const SearchBarContainer = styled.div`
