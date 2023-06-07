@@ -1,6 +1,9 @@
+/* eslint-disable no-console */
 /* eslint-disable no-alert */
 import React, { useState } from 'react';
 import useInterval from 'use-interval';
+import styled from 'styled-components';
+import { BiRefresh } from 'react-icons/bi';
 import {
   MainStyled,
   PageContainerStyled,
@@ -14,6 +17,7 @@ import { useMutation, useRequest } from '../../hooks/request.hooks';
 import { publishPost, searchPosts } from '../../services/api/timeline.services';
 import PostsList from '../../components/PostsList';
 import TrendingStyled from '../../components/Trending';
+import client from '../../services/api/api.client';
 
 export default function Timeline() {
   const {
@@ -43,12 +47,20 @@ export default function Timeline() {
     });
   };
 
-  const [count, setCount] = React.useState(0);
+  const [updatedPosts, setUpdatedPosts] = useState([]);
 
   useInterval(() => {
-    setCount(count + 1);
-    console.log(count);
-  }, 1000);
+    client
+      .get('/posts')
+      .then((res) => {
+        if (res.data.length !== posts.length) {
+          console.log('not equal, update.');
+          setUpdatedPosts(res.data);
+          return;
+        }
+        console.log('equal, no update.');
+      });
+  }, 15000);
 
   return (
     <>
@@ -58,6 +70,18 @@ export default function Timeline() {
           <TitleH2Styled>timeline</TitleH2Styled>
           <SectionStyled>
             <PostsStyled>
+              <UpdateButton update={posts && (updatedPosts.length - posts.length) > 0 && !NaN}>
+                { posts && (updatedPosts.length - posts.length) > 0 && !NaN
+                  ? (
+                    <p>
+                      {updatedPosts.length - posts.length}
+                      {' '}
+                      new posts, load more!
+                      <BiRefresh />
+                    </p>
+                  )
+                  : ''}
+              </UpdateButton>
               <CreatePost loading={loadingPublish} onSubmit={handlePostSubmit} />
               <PostsList
                 posts={posts}
@@ -75,3 +99,18 @@ export default function Timeline() {
     </>
   );
 }
+
+const UpdateButton = styled.button`
+  display: ${(props) => (props.update ? 'flex' : 'none')};
+  background: #1877F2;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  height: 61px;
+  justify-content: center;
+  align-items: center;
+  p{
+    display: flex;
+    flex-direction: row;
+    gap: 14px;
+  }
+`;
