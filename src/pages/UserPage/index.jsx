@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { TitleH2Styled } from '../../styled';
@@ -30,8 +29,7 @@ export default function UserPage() {
       .then((res) => {
         setUser(res.data);
       })
-      .catch(() => {
-      });
+      .catch(() => {});
 
     client
       .get(`/search/posts/${id}`)
@@ -47,7 +45,7 @@ export default function UserPage() {
     client
       .get(`/user/${id}`)
       .then((res) => setIsFollowing(res.data))
-      .catch((err) => alert(err.response));
+      .catch((err) => alert(err.response.data));
   }, [id]);
 
   function followUser() {
@@ -86,17 +84,23 @@ export default function UserPage() {
           <TitleH2Styled isFollowing={isFollowing}>
             {user ? user?.name : 'User'}
             &apos;s posts
-            <button disabled={isSubmitting} type="button" onClick={isFollowing === false ? followUser : unfollowUser}>
+            <button
+              disabled={isSubmitting}
+              type="button"
+              onClick={isFollowing === false ? followUser : unfollowUser}
+            >
               {isFollowing === false ? 'Follow' : 'Unfollow'}
             </button>
           </TitleH2Styled>
           <SectionStyled>
             <PostsStyled>
-              <PostsList posts={posts} error={errorPosts} loading={loadingPosts} />
+              <PostsList
+                posts={posts}
+                error={errorPosts}
+                loading={loadingPosts}
+              />
             </PostsStyled>
-            <TrendingStyled
-              posts={posts}
-            />
+            <TrendingStyled posts={posts} />
           </SectionStyled>
         </MainStyled>
       </PageContainerStyled>
