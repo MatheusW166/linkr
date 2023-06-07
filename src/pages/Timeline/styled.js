@@ -25,8 +25,8 @@ export const MainStyled = styled.main`
   }
 
   @media screen and (max-width: 616px) {
-      width: 100%;
-    }
+    width: 100%;
+  }
 `;
 
 export const SectionStyled = styled.div`
@@ -41,6 +41,17 @@ export const PostsStyled = styled.div`
   flex-direction: column;
   width: 611px;
   gap: 30px;
+  position: relative;
+
+  span:last-child {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    border-width: 4px;
+  }
 `;
 
 export const UpdateButton = styled.button`

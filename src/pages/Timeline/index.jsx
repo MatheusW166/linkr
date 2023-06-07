@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-alert */
 import React, { useState } from 'react';
 import useInterval from 'use-interval';
 import { BiRefresh } from 'react-icons/bi';
@@ -10,11 +8,13 @@ import {
   PostsStyled,
   UpdateButton,
 } from './styled';
-import { TitleH2Styled } from '../../styled';
+import ScrollIndicator from '../../components/ScrollIndicator';
+import { LoaderStyled, TitleH2Styled } from '../../styled';
 import CreatePost from '../../components/CreatePost';
 import Header from '../../components/Header';
-import { useMutation, useRequest } from '../../hooks/request.hooks';
-import { publishPost, searchPosts } from '../../services/api/timeline.services';
+import { useMutation } from '../../hooks/request.hooks';
+import usePostsPagination from '../../hooks/posts.hooks';
+import { publishPost } from '../../services/api/timeline.services';
 import PostsList from '../../components/PostsList';
 import TrendingStyled from '../../components/Trending';
 import client from '../../services/api/api.client';
@@ -27,7 +27,8 @@ export default function Timeline() {
     loading: loadingPosts,
     error: errorPosts,
     refresh: refreshPosts,
-  } = useRequest(searchPosts);
+    nextPage,
+  } = usePostsPagination(10);
 
   const { mutate: publish, loading: loadingPublish } = useMutation(publishPost);
 
@@ -44,10 +45,12 @@ export default function Timeline() {
         event.target.reset();
       },
       onError: () => {
-        alert('Não foi possível publicar');
+        alert('There was an error publishing your link');
       },
     });
   };
+
+  const loadingNewPosts = loadingPosts && posts?.length;
 
   const handleUpdatePosts = (event) => {
     event.preventDefault();
@@ -95,6 +98,8 @@ export default function Timeline() {
                 loading={loadingPosts}
                 refreshPosts={refreshPosts}
               />
+              {posts?.length && <ScrollIndicator onIntersection={nextPage} />}
+              {loadingNewPosts && <LoaderStyled />}
             </PostsStyled>
             <TrendingStyled posts={posts} />
           </SectionStyled>

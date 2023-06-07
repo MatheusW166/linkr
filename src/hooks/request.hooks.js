@@ -34,7 +34,6 @@ export function useMutation(promise) {
 
   const mutate = useCallback(
     ({ onError, onSuccess, ...props }) => {
-      setData(null);
       setError(null);
       setLoading(true);
       promise(props)

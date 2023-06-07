@@ -19,10 +19,19 @@ export default function EditableText({
     }
   };
 
-  if (!isEditing) return <p data-test="description" ref={textRef}>{text}</p>;
+  const moveCursorEnd = (event) => {
+    const input = event.target;
+    const textLength = input.value?.length ?? 0;
+    input.setSelectionRange(textLength, textLength);
+  };
+
+  if (!isEditing) {
+    return <p data-test="description" ref={textRef}>{text}</p>;
+  }
 
   return (
     <EditableTextStyled
+      onFocus={moveCursorEnd}
       disabled={disabled}
       placeholder="Digite aqui..."
       autoFocus
