@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 import React from 'react';
 import {
   MainStyled,
@@ -6,11 +5,13 @@ import {
   SectionStyled,
   PostsStyled,
 } from './styled';
-import { TitleH2Styled } from '../../styled';
+import ScrollIndicator from '../../components/ScrollIndicator';
+import { LoaderStyled, TitleH2Styled } from '../../styled';
 import CreatePost from '../../components/CreatePost';
 import Header from '../../components/Header';
-import { useMutation, useRequest } from '../../hooks/request.hooks';
-import { publishPost, searchPosts } from '../../services/api/timeline.services';
+import { useMutation } from '../../hooks/request.hooks';
+import usePostsPagination from '../../hooks/posts.hooks';
+import { publishPost } from '../../services/api/timeline.services';
 import PostsList from '../../components/PostsList';
 import TrendingStyled from '../../components/Trending';
 
@@ -20,12 +21,10 @@ export default function Timeline() {
     loading: loadingPosts,
     error: errorPosts,
     refresh: refreshPosts,
-  } = useRequest(searchPosts);
+    nextPage,
+  } = usePostsPagination(10);
 
-  const {
-    mutate: publish,
-    loading: loadingPublish,
-  } = useMutation(publishPost);
+  const { mutate: publish, loading: loadingPublish } = useMutation(publishPost);
 
   const handlePostSubmit = (event) => {
     event.preventDefault();
@@ -45,6 +44,8 @@ export default function Timeline() {
     });
   };
 
+  const loadingNewPosts = loadingPosts && posts?.length;
+
   return (
     <>
       <Header />
@@ -63,6 +64,8 @@ export default function Timeline() {
                 loading={loadingPosts}
                 refreshPosts={refreshPosts}
               />
+              {posts?.length && <ScrollIndicator onIntersection={nextPage} />}
+              {loadingNewPosts && <LoaderStyled />}
             </PostsStyled>
             <TrendingStyled posts={posts} />
           </SectionStyled>

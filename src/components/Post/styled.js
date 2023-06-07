@@ -9,6 +9,10 @@ export const PostStyled = styled.div`
   position: relative;
   overflow: hidden;
 
+  a {
+    width: fit-content;
+  }
+
   & > div:last-child {
     display: flex;
     flex-direction: column;
