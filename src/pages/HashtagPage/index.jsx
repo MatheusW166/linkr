@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRequest } from '../../hooks/request.hooks';
 import retrievePosts from '../../services/api/hashtags.services';
@@ -16,12 +16,17 @@ import {
 export default function HashtagPage() {
   const { hashtag } = useParams();
 
+  const retrievePostsByHashtag = useCallback(
+    () => retrievePosts(hashtag),
+    [hashtag],
+  );
+
   const {
     data: posts,
     loading: loadingPosts,
     error: errorPosts,
     refresh: refreshPosts,
-  } = useRequest(() => retrievePosts(hashtag));
+  } = useRequest(retrievePostsByHashtag);
 
   return (
     <>
