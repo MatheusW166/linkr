@@ -16,11 +16,12 @@ export default function SearchBar() {
 
   const { token } = useContext(Context);
 
+  const MINIMUM_STRING_SIZE = 3;
+
   async function searchUsers(e) {
     setForm(e.target.value);
 
-    // CHANGE!!!!!
-    if (e.target.value.length < 1) {
+    if (e.target.value.length < MINIMUM_STRING_SIZE) {
       return;
     }
 
@@ -45,8 +46,7 @@ export default function SearchBar() {
         element={StyledInput}
         type="text"
         placeholder="Search for people"
-        // CHANGE!!!!!
-        minLength={1}
+        minLength={MINIMUM_STRING_SIZE}
         debounceTimeout={300}
         onChange={(e) => searchUsers(e)}
         data-test="search"
