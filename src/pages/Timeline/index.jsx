@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-alert */
 import React, { useState } from 'react';
 import useInterval from 'use-interval';
