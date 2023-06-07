@@ -22,7 +22,10 @@ export default function Timeline() {
     refresh: refreshPosts,
   } = useRequest(searchPosts);
 
-  const { mutate: publish, loading: loadingPublish } = useMutation(publishPost);
+  const {
+    mutate: publish,
+    loading: loadingPublish,
+  } = useMutation(publishPost);
 
   const handlePostSubmit = (event) => {
     event.preventDefault();
@@ -37,7 +40,7 @@ export default function Timeline() {
         event.target.reset();
       },
       onError: () => {
-        alert('Não foi possível publicar');
+        alert('There was an error publishing your link');
       },
     });
   };
@@ -50,7 +53,10 @@ export default function Timeline() {
           <TitleH2Styled>timeline</TitleH2Styled>
           <SectionStyled>
             <PostsStyled>
-              <CreatePost loading={loadingPublish} onSubmit={handlePostSubmit} />
+              <CreatePost
+                loading={loadingPublish}
+                onSubmit={handlePostSubmit}
+              />
               <PostsList
                 posts={posts}
                 error={errorPosts}
@@ -58,9 +64,7 @@ export default function Timeline() {
                 refreshPosts={refreshPosts}
               />
             </PostsStyled>
-            <TrendingStyled
-              posts={posts}
-            />
+            <TrendingStyled posts={posts} />
           </SectionStyled>
         </MainStyled>
       </PageContainerStyled>
