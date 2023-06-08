@@ -11,6 +11,7 @@ import {
   PostsStyled,
 } from './styled';
 import TrendingStyled from '../../components/Trending';
+import { getUserFollowers } from '../../services/api/timeline.services';
 
 export default function HashtagPage() {
   const { hashtag } = useParams();
@@ -35,13 +36,25 @@ export default function HashtagPage() {
       });
   }
 
+  const [followedUsers, setFollowedUsers] = useState([]);
+
+  const fetchFollowedUsers = async () => {
+    try {
+      const users = await getUserFollowers();
+      setFollowedUsers(users);
+    } catch {
+      alert('Não foi possível carregar a pagina');
+    }
+  };
+
   useEffect(() => {
     retrievePosts(hashtag);
+    fetchFollowedUsers();
   }, [hashtag]);
 
   return (
     <>
-      <Header />
+      <Header followedUsers={followedUsers} />
       <PageContainerStyled>
         <MainStyled>
           <TitleH2Styled datatest="hashtag-title">
@@ -54,6 +67,8 @@ export default function HashtagPage() {
                 error={errorPosts}
                 loading={loadingPosts}
                 posts={posts}
+                followedUsers={[]}
+                page="hashtag"
               />
             </PostsStyled>
             <TrendingStyled />

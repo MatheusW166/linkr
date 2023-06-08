@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { HiMagnifyingGlass } from 'react-icons/hi2';
 import Context from '../../Context';
 
-export default function SearchBar() {
+export default function SearchBar({ followedUsers }) {
   const [form, setForm] = useState('');
   const [users, setUsers] = useState([]);
 
@@ -67,6 +67,7 @@ export default function SearchBar() {
                 <p>
                   {user.name}
                 </p>
+                {followedUsers.some((f) => f.followerId === user.id) === true ? <span>• following</span> : '' }
               </Item>
             ))}
           </ul>
@@ -128,5 +129,9 @@ const Item = styled.li`
   }
   p {
     color: #515151;
+  }
+
+  span {
+    color: #C5C5C5;
   }
 `;

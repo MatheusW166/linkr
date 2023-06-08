@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   MainStyled,
   PageContainerStyled,
@@ -10,7 +10,7 @@ import { TitleH2Styled } from '../../styled';
 import CreatePost from '../../components/CreatePost';
 import Header from '../../components/Header';
 import { useMutation, useRequest } from '../../hooks/request.hooks';
-import { publishPost, searchPosts } from '../../services/api/timeline.services';
+import { getUserFollowers, publishPost, searchPosts } from '../../services/api/timeline.services';
 import PostsList from '../../components/PostsList';
 import TrendingStyled from '../../components/Trending';
 
@@ -42,9 +42,24 @@ export default function Timeline() {
     });
   };
 
+  const [followedUsers, setFollowedUsers] = useState([]);
+
+  const fetchFollowedUsers = async () => {
+    try {
+      const users = await getUserFollowers();
+      setFollowedUsers(users);
+    } catch {
+      alert('Não foi possível carregar a timeline');
+    }
+  };
+
+  useEffect(() => {
+    fetchFollowedUsers();
+  }, []);
+
   return (
     <>
-      <Header />
+      <Header followedUsers={followedUsers} />
       <PageContainerStyled>
         <MainStyled>
           <TitleH2Styled>timeline</TitleH2Styled>
@@ -56,6 +71,8 @@ export default function Timeline() {
                 error={errorPosts}
                 loading={loadingPosts}
                 refreshPosts={refreshPosts}
+                followedUsers={followedUsers}
+                page="timeline"
               />
             </PostsStyled>
             <TrendingStyled />
