@@ -12,7 +12,6 @@ import {
   SectionStyled,
   PostsStyled,
 } from './styled';
-import TrendingStyled from '../../components/Trending';
 import { getUserFollowers } from '../../services/api/timeline.services';
 
 export default function HashtagPage() {
@@ -61,7 +60,6 @@ export default function HashtagPage() {
                 posts={posts}
                 error={errorPosts}
                 loading={loadingPosts}
-                posts={posts}
                 followedUsers={followedUsers}
                 page="hashtag"
                 refreshPosts={refreshPosts}
