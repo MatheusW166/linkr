@@ -67,7 +67,7 @@ export default function HashtagPage() {
                 error={errorPosts}
                 loading={loadingPosts}
                 posts={posts}
-                followedUsers={[]}
+                followedUsers={followedUsers}
                 page="hashtag"
               />
             </PostsStyled>

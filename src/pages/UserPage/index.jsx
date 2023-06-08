@@ -37,9 +37,6 @@ export default function UserPage() {
 
   useEffect(() => {
     fetchFollowedUsers();
-  }, []);
-
-  useEffect(() => {
     client
       .get(`/search/user/${id}`)
       .then((res) => {
