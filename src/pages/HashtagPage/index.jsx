@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRequest } from '../../hooks/request.hooks';
 import retrievePosts from '../../services/api/hashtags.services';
@@ -21,7 +21,7 @@ export default function HashtagPage() {
     () => retrievePosts(hashtag),
     [hashtag],
   );
-  
+
   const [followedUsers, setFollowedUsers] = useState([]);
 
   const fetchFollowedUsers = async () => {
@@ -37,7 +37,7 @@ export default function HashtagPage() {
     retrievePosts(hashtag);
     fetchFollowedUsers();
   }, [hashtag]);
-  
+
   const {
     data: posts,
     loading: loadingPosts,

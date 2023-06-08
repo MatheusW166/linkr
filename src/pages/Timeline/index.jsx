@@ -64,7 +64,7 @@ export default function Timeline() {
       }
     });
   }, 15000);
-  
+
   const [followedUsers, setFollowedUsers] = useState([]);
 
   const fetchFollowedUsers = async () => {
