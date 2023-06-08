@@ -25,8 +25,8 @@ export const MainStyled = styled.main`
   }
 
   @media screen and (max-width: 616px) {
-      width: 100%;
-    }
+    width: 100%;
+  }
 `;
 
 export const SectionStyled = styled.div`
@@ -41,4 +41,30 @@ export const PostsStyled = styled.div`
   flex-direction: column;
   width: 611px;
   gap: 30px;
+  position: relative;
+
+  span:last-child {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    border-width: 4px;
+  }
+`;
+
+export const UpdateButton = styled.button`
+  display: ${(props) => (props.update ? 'flex' : 'none')};
+  background: #1877f2;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  height: 61px;
+  justify-content: center;
+  align-items: center;
+  p {
+    display: flex;
+    flex-direction: row;
+    gap: 14px;
+  }
 `;

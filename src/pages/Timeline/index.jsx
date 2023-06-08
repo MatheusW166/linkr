@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useInterval from 'use-interval';
 import { BiRefresh } from 'react-icons/bi';
 import {
@@ -14,7 +14,7 @@ import CreatePost from '../../components/CreatePost';
 import Header from '../../components/Header';
 import { useMutation } from '../../hooks/request.hooks';
 import usePostsPagination from '../../hooks/posts.hooks';
-import { publishPost } from '../../services/api/timeline.services';
+import { getUserFollowers, publishPost } from '../../services/api/timeline.services';
 import PostsList from '../../components/PostsList';
 import TrendingStyled from '../../components/Trending';
 import client from '../../services/api/api.client';
