@@ -1,10 +1,7 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable no-alert */
 import React, { useContext, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { MdEdit } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import EditableText from '../EditableText';
 import { PostActionsStyled, PostStyled } from './styled';
 import { UserAvatarStyled } from '../../styled';
@@ -29,8 +26,6 @@ export default function Post({
   const [isEditing, setIsEditing] = useState(false);
   const { user: loggedUser } = useContext(Context);
   const isPostOwner = loggedUser?.id === userId;
-
-  const navigate = useNavigate();
 
   const {
     mutate: deleteUserPost,
@@ -84,10 +79,6 @@ export default function Post({
 
   const postDescription = highlightHashtags(rawDescription);
 
-  const handleClick = () => {
-    navigate(`/user/${userId}`);
-  };
-
   return (
     <>
       <ModalCustom
@@ -110,7 +101,7 @@ export default function Post({
           <Likes postId={postId} />
         </div>
         <div>
-          <p data-test="username" onClick={handleClick} style={{ cursor: 'pointer' }}>{userName}</p>
+          <Link data-test="username" to={`/user/${userId}`}>{userName}</Link>
           <EditableText
             text={postDescription}
             defaultInputValue={rawDescription}
@@ -127,7 +118,7 @@ export default function Post({
 }
 
 export function PostActions({ isPostOwner, onClickDelete, onClickEdit }) {
-  if (!isPostOwner) return '';
+  if (!isPostOwner) return null;
   return (
     isPostOwner && (
       <PostActionsStyled>

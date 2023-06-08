@@ -1,8 +1,10 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
+import { useRequest } from '../../hooks/request.hooks';
+import retrievePosts from '../../services/api/hashtags.services';
 import Header from '../../components/Header';
 import PostsList from '../../components/PostsList';
+import TrendingStyled from '../../components/Trending';
 import { TitleH2Styled } from '../../styled';
 import {
   MainStyled,
@@ -16,26 +18,11 @@ import { getUserFollowers } from '../../services/api/timeline.services';
 export default function HashtagPage() {
   const { hashtag } = useParams();
 
-  const [loadingPosts, setLoadingPosts] = useState(true);
-  const [posts, setPosts] = useState(null);
-  const [errorPosts, setErrorPosts] = useState(null);
-
-  const { REACT_APP_API_URL } = process.env;
-  const token = localStorage.getItem('token');
-
-  function retrievePosts(hashtagName) {
-    axios.get(`${REACT_APP_API_URL}/hashtag/${hashtagName}`, { headers: { Authorization: `Bearer ${token}` } })
-      .then((response) => {
-        setPosts(response.data);
-        setLoadingPosts(false);
-      })
-
-      .catch((error) => {
-        setErrorPosts(error);
-        setLoadingPosts(false);
-      });
-  }
-
+  const retrievePostsByHashtag = useCallback(
+    () => retrievePosts(hashtag),
+    [hashtag],
+  );
+  
   const [followedUsers, setFollowedUsers] = useState([]);
 
   const fetchFollowedUsers = async () => {
@@ -51,6 +38,13 @@ export default function HashtagPage() {
     retrievePosts(hashtag);
     fetchFollowedUsers();
   }, [hashtag]);
+  
+  const {
+    data: posts,
+    loading: loadingPosts,
+    error: errorPosts,
+    refresh: refreshPosts,
+  } = useRequest(retrievePostsByHashtag);
 
   return (
     <>
@@ -64,14 +58,18 @@ export default function HashtagPage() {
           <SectionStyled>
             <PostsStyled>
               <PostsList
+                posts={posts}
                 error={errorPosts}
                 loading={loadingPosts}
                 posts={posts}
                 followedUsers={followedUsers}
                 page="hashtag"
+                refreshPosts={refreshPosts}
               />
             </PostsStyled>
-            <TrendingStyled />
+            <TrendingStyled
+              posts={posts}
+            />
           </SectionStyled>
         </MainStyled>
       </PageContainerStyled>
