@@ -3,7 +3,7 @@ import { AiFillDelete } from 'react-icons/ai';
 import { MdEdit } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import EditableText from '../EditableText';
-import { PostActionsStyled, PostStyled } from './styled';
+import { PostActionsStyled, PostStyled, SideButtons } from './styled';
 import { UserAvatarStyled } from '../../styled';
 import highlightHashtags from './utils';
 import LinkPreview from '../LinkPreview';
@@ -12,6 +12,8 @@ import { useMutation } from '../../hooks/request.hooks';
 import { deletePost, editPost } from '../../services/api/posts.services';
 import Likes from '../Likes';
 import Context from '../../Context';
+import CommentsButton from '../CommentsButton';
+import Comments from '../Comments';
 
 export default function Post({
   postId,
@@ -26,6 +28,8 @@ export default function Post({
   const [isEditing, setIsEditing] = useState(false);
   const { user: loggedUser } = useContext(Context);
   const isPostOwner = loggedUser?.id === userId;
+  const [areCommentsVisible, setAreCommentsVisible] = useState(false);
+  const [comments, setComments] = useState([]);
 
   const {
     mutate: deleteUserPost,
@@ -96,10 +100,15 @@ export default function Post({
           onClickDelete={openModal}
           onClickEdit={toggleEdition}
         />
-        <div>
+        <SideButtons>
           <UserAvatarStyled src={userImageUrl} alt="avatar" />
           <Likes postId={postId} />
-        </div>
+          <CommentsButton
+            areCommentsVisible={areCommentsVisible}
+            setAreCommentsVisible={setAreCommentsVisible}
+            totalComments={comments.length}
+          />
+        </SideButtons>
         <div>
           <Link data-test="username" to={`/user/${userId}`}>{userName}</Link>
           <EditableText
@@ -113,6 +122,12 @@ export default function Post({
           <LinkPreview url={url} />
         </div>
       </PostStyled>
+      <Comments
+        areCommentsVisible={areCommentsVisible}
+        comments={comments}
+        postId={postId}
+        setComments={setComments}
+      />
     </>
   );
 }

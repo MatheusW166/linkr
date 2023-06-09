@@ -3,9 +3,9 @@ import styled from 'styled-components';
 export const PostStyled = styled.div`
   background: #171717;
   border-radius: 16px;
-  padding: 16px 18px;
+  padding: 16px 12px;
   display: flex;
-  gap: 18px;
+  gap: 12px;
   position: relative;
   overflow: hidden;
 
@@ -64,4 +64,11 @@ export const PostActionsStyled = styled.div`
     opacity: 0.8;
     cursor: pointer;
   }
+`;
+
+export const SideButtons = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
 `;

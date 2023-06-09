@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
-export const LikesContainer = styled.div`
-  width: 50px;
+export const CommentsButtonContainerStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
   p {
     cursor: default;
     font-family: 'Lato', sans-serif;
@@ -17,8 +16,8 @@ export const LikesContainer = styled.div`
   }
 `;
 
-export const LikesButton = styled.button`
+export const CommentsButtonStyled = styled.button`
   cursor: pointer;
-  color: ${(props) => (props.isLiked ? '#AC0000' : '#FFFFFF')};
+  color: #FFFFFF;
   font-size: 22px;
 `;
