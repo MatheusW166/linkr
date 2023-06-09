@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useInterval from 'use-interval';
 import { BiRefresh } from 'react-icons/bi';
 import {
@@ -13,7 +13,7 @@ import CreatePost from '../../components/CreatePost';
 import Header from '../../components/Header';
 import { useMutation } from '../../hooks/request.hooks';
 import usePostsPagination from '../../hooks/posts.hooks';
-import { publishPost } from '../../services/api/timeline.services';
+import { getUserFollowers, publishPost } from '../../services/api/timeline.services';
 import PostsList from '../../components/PostsList';
 import TrendingStyled from '../../components/Trending';
 import client from '../../services/api/api.client';
@@ -68,9 +68,24 @@ export default function Timeline() {
     });
   }, 15000);
 
+  const [followedUsers, setFollowedUsers] = useState([]);
+
+  const fetchFollowedUsers = async () => {
+    try {
+      const users = await getUserFollowers();
+      setFollowedUsers(users);
+    } catch {
+      alert('Não foi possível carregar a timeline');
+    }
+  };
+
+  useEffect(() => {
+    fetchFollowedUsers();
+  }, []);
+
   return (
     <>
-      <Header />
+      <Header followedUsers={followedUsers} />
       <PageContainerStyled>
         <MainStyled>
           <TitleH2Styled>timeline</TitleH2Styled>
@@ -100,6 +115,8 @@ export default function Timeline() {
                 error={errorPosts}
                 loading={loadingPosts}
                 refreshPosts={refreshPosts}
+                followedUsers={followedUsers}
+                page="timeline"
               />
               <InfiniteScroll
                 dataLength={posts?.length}
