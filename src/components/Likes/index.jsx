@@ -51,7 +51,7 @@ export default function Likes({ postId }) {
     let message = '';
     let namedLikes = 0;
 
-    if (!totalLikes) return '';
+    if (!totalLikes) { return ''; }
 
     if (isLiked) {
       namedLikes += 1;

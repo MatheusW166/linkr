@@ -39,11 +39,11 @@ export function useMutation(promise) {
       promise(props)
         .then((res) => {
           setData(res);
-          if (onSuccess) onSuccess(res);
+          if (onSuccess) { onSuccess(res); }
         })
         .catch((err) => {
           setError(err);
-          if (onError) onError(err);
+          if (onError) { onError(err); }
         })
         .finally(() => setLoading(false));
     },

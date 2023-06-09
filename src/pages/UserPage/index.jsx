@@ -57,7 +57,9 @@ export default function UserPage() {
       .then((res) => {
         setUser(res.data);
       })
-      .catch(() => {});
+      .catch(() => {
+        // This is intentional
+      });
 
     client
       .get(`/user/${id}`)
