@@ -8,7 +8,7 @@ import { TitleH1Styled, UserAvatarStyled } from '../../styled';
 import { HeaderStyled, OutButton, UserDropdownStyled } from './styled';
 import SearchBar from '../SearchBar/index';
 
-export default function Header() {
+export default function Header({ followedUsers }) {
   const navigate = useNavigate();
   const [logOutButton, setLogOutButton] = useState(false);
   const { user } = useContext(Context);
@@ -37,7 +37,7 @@ export default function Header() {
             <TitleH1Styled>linkr</TitleH1Styled>
           </Link>
           <DesktopSearchBarDisplay>
-            <SearchBar />
+            <SearchBar followedUsers={followedUsers} />
           </DesktopSearchBarDisplay>
           <UserDropdownStyled onClick={() => setLogOutButton(!logOutButton)}>
             {logOutButton === false ? (

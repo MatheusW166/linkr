@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRequest } from '../../hooks/request.hooks';
 import retrievePosts from '../../services/api/hashtags.services';
@@ -12,6 +12,7 @@ import {
   SectionStyled,
   PostsStyled,
 } from './styled';
+import { getUserFollowers } from '../../services/api/timeline.services';
 
 export default function HashtagPage() {
   const { hashtag } = useParams();
@@ -20,6 +21,22 @@ export default function HashtagPage() {
     () => retrievePosts(hashtag),
     [hashtag],
   );
+
+  const [followedUsers, setFollowedUsers] = useState([]);
+
+  const fetchFollowedUsers = async () => {
+    try {
+      const users = await getUserFollowers();
+      setFollowedUsers(users);
+    } catch {
+      alert('Não foi possível carregar a pagina');
+    }
+  };
+
+  useEffect(() => {
+    retrievePosts(hashtag);
+    fetchFollowedUsers();
+  }, [hashtag]);
 
   const {
     data: posts,
@@ -30,7 +47,7 @@ export default function HashtagPage() {
 
   return (
     <>
-      <Header />
+      <Header followedUsers={followedUsers} />
       <PageContainerStyled>
         <MainStyled>
           <TitleH2Styled datatest="hashtag-title">
@@ -43,6 +60,8 @@ export default function HashtagPage() {
                 posts={posts}
                 error={errorPosts}
                 loading={loadingPosts}
+                followedUsers={followedUsers}
+                page="hashtag"
                 refreshPosts={refreshPosts}
               />
             </PostsStyled>

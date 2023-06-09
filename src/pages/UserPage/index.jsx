@@ -11,6 +11,7 @@ import Header from '../../components/Header';
 import PostsList from '../../components/PostsList';
 import TrendingStyled from '../../components/Trending';
 import client from '../../services/api/api.client';
+import { getUserFollowers } from '../../services/api/timeline.services';
 
 export default function UserPage() {
   const { id } = useParams();
@@ -22,8 +23,19 @@ export default function UserPage() {
 
   const [isFollowing, setIsFollowing] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [followedUsers, setFollowedUsers] = useState([]);
+
+  const fetchFollowedUsers = async () => {
+    try {
+      const users = await getUserFollowers();
+      setFollowedUsers(users);
+    } catch {
+      alert('Não foi possível carregar a pagina');
+    }
+  };
 
   useEffect(() => {
+    fetchFollowedUsers();
     client
       .get(`/search/user/${id}`)
       .then((res) => {
@@ -78,7 +90,7 @@ export default function UserPage() {
 
   return (
     <>
-      <Header />
+      <Header followedUsers={followedUsers} />
       <PageContainerStyled>
         <MainStyled>
           <TitleH2Styled isFollowing={isFollowing}>
@@ -98,6 +110,8 @@ export default function UserPage() {
                 posts={posts}
                 error={errorPosts}
                 loading={loadingPosts}
+                followedUsers={followedUsers}
+                page="userpage"
               />
             </PostsStyled>
             <TrendingStyled posts={posts} />
