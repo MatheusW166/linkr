@@ -8,8 +8,7 @@ import {
   PostsStyled,
   UpdateButton,
 } from './styled';
-import ScrollIndicator from '../../components/ScrollIndicator';
-import { LoaderStyled, TitleH2Styled } from '../../styled';
+import { TitleH2Styled } from '../../styled';
 import CreatePost from '../../components/CreatePost';
 import Header from '../../components/Header';
 import { useMutation } from '../../hooks/request.hooks';
@@ -18,6 +17,7 @@ import { getUserFollowers, publishPost } from '../../services/api/timeline.servi
 import PostsList from '../../components/PostsList';
 import TrendingStyled from '../../components/Trending';
 import client from '../../services/api/api.client';
+import InfiniteScroll from '../../components/InfiniteScroll';
 
 export default function Timeline() {
   const [updatedPosts, setUpdatedPosts] = useState([]);
@@ -30,7 +30,10 @@ export default function Timeline() {
     nextPage,
   } = usePostsPagination(10);
 
-  const { mutate: publish, loading: loadingPublish } = useMutation(publishPost);
+  const {
+    mutate: publish,
+    loading: loadingPublish,
+  } = useMutation(publishPost);
 
   const handlePostSubmit = (event) => {
     event.preventDefault();
@@ -51,6 +54,7 @@ export default function Timeline() {
   };
 
   const loadingNewPosts = loadingPosts && posts?.length;
+  const loadingFirstPosts = loadingPosts && !posts?.length;
 
   const handleUpdatePosts = (event) => {
     event.preventDefault();
@@ -110,13 +114,16 @@ export default function Timeline() {
               <PostsList
                 posts={posts}
                 error={errorPosts}
-                loading={loadingPosts}
+                loading={loadingFirstPosts}
                 refreshPosts={refreshPosts}
                 followedUsers={followedUsers}
                 page="timeline"
               />
-              {posts?.length && <ScrollIndicator onIntersection={nextPage} />}
-              {loadingNewPosts && <LoaderStyled />}
+              <InfiniteScroll
+                dataLength={posts?.length}
+                fetch={nextPage}
+                loadingNewData={loadingNewPosts}
+              />
             </PostsStyled>
             <TrendingStyled posts={posts} />
           </SectionStyled>

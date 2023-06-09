@@ -7,7 +7,10 @@ export const PostStyled = styled.div`
   display: flex;
   gap: 12px;
   position: relative;
-  overflow: hidden;
+
+  &:has(.repost-badge) {
+    margin-top: 32px;
+  }
 
   a {
     width: fit-content;
@@ -51,18 +54,6 @@ export const PostStyled = styled.div`
         font-size: 14px;
       }
     }
-  }
-`;
-
-export const PostActionsStyled = styled.div`
-  position: absolute;
-  right: 18px;
-  display: flex;
-  gap: 12px;
-
-  svg:hover {
-    opacity: 0.8;
-    cursor: pointer;
   }
 `;
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { ErrorMessageStyled, TitleH3Styled } from '../../styled';
 import Post from '../Post';
 import PostsUlStyled from './styled';
+import getPostKey from './utils';
 
 export default function PostsList({
   posts,
@@ -20,27 +21,8 @@ export default function PostsList({
     );
   }
 
-  if (posts?.length > 0) {
-    return (
-      <>
-        {loading && <TitleH3Styled>Loading...</TitleH3Styled>}
-        <PostsUlStyled>
-          {posts?.map((post) => (
-            <li key={post.id}>
-              <Post
-                postId={post.id}
-                userName={post.userName}
-                userId={post.userId}
-                userImageUrl={post.userImageUrl}
-                description={post.description}
-                url={post.url}
-                refreshPosts={refreshPosts}
-              />
-            </li>
-          ))}
-        </PostsUlStyled>
-      </>
-    );
+  if (loading && !posts?.length) {
+    return <TitleH3Styled>Loading...</TitleH3Styled>;
   }
 
   if (posts?.length === 0) {
@@ -48,7 +30,11 @@ export default function PostsList({
       return <TitleH3Styled data-test="message">No posts found</TitleH3Styled>;
     }
     if (followedUsers?.length > 0) {
-      return <TitleH3Styled data-test="message">No posts found from your friends</TitleH3Styled>;
+      return (
+        <TitleH3Styled data-test="message">
+          No posts found from your friends
+        </TitleH3Styled>
+      );
     }
     return (
       <TitleH3Styled data-test="message">
@@ -56,4 +42,25 @@ export default function PostsList({
       </TitleH3Styled>
     );
   }
+
+  return (
+    <PostsUlStyled>
+      {posts?.map((post) => (
+        <li key={getPostKey(post)}>
+          <Post
+            postId={post.id}
+            userName={post.userName}
+            userId={post.userId}
+            userImageUrl={post.userImageUrl}
+            description={post.description}
+            url={post.url}
+            refreshPosts={refreshPosts}
+            repostUserId={post.repostUserId}
+            repostUserName={post.repostUserName}
+            repostCount={post.repostCount}
+          />
+        </li>
+      ))}
+    </PostsUlStyled>
+  );
 }
