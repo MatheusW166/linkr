@@ -45,6 +45,7 @@ export default function Timeline() {
       description,
       onSuccess: () => {
         refreshPosts();
+        setUpdatedPosts([]);
         event.target.reset();
       },
       onError: () => {
@@ -58,15 +59,16 @@ export default function Timeline() {
 
   const handleUpdatePosts = (event) => {
     event.preventDefault();
+    setUpdatedPosts([]);
     refreshPosts();
   };
 
   useInterval(() => {
-    client.get('/posts').then((res) => {
-      if (res.data.length !== posts.length) {
+    if (posts) {
+      client.get(`/latestPostsUpdate?postId=${posts[0].id}&createdAt=${posts[0].createdAt}`).then((res) => {
         setUpdatedPosts(res.data);
-      }
-    });
+      });
+    }
   }, 15000);
 
   const [followedUsers, setFollowedUsers] = useState([]);
@@ -93,12 +95,13 @@ export default function Timeline() {
           <SectionStyled>
             <PostsStyled>
               <UpdateButton
-                update={posts && updatedPosts.length - posts.length > 0 && !NaN}
+                update={posts && updatedPosts.length > 0}
                 onClick={handleUpdatePosts}
+                data-test="load-btn"
               >
-                {posts && updatedPosts.length - posts.length > 0 && !NaN ? (
+                {posts && updatedPosts.length > 0 ? (
                   <p>
-                    {updatedPosts.length - posts.length}
+                    {updatedPosts.length}
                     {' '}
                     new posts, load more!
                     <BiRefresh />
