@@ -12,18 +12,30 @@ import PostsList from '../../components/PostsList';
 import TrendingStyled from '../../components/Trending';
 import client from '../../services/api/api.client';
 import { getUserFollowers } from '../../services/api/timeline.services';
+import InfiniteScroll from '../../components/InfiniteScroll';
+import usePostsPagination from '../../hooks/posts.hooks';
 
 export default function UserPage() {
   const { id } = useParams();
-
-  const [loadingPosts, setLoadingPosts] = useState(true);
-  const [posts, setPosts] = useState(null);
-  const [errorPosts, setErrorPosts] = useState(null);
   const [user, setUser] = useState(null);
-
   const [isFollowing, setIsFollowing] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [followedUsers, setFollowedUsers] = useState([]);
+
+  const fetchUserPosts = async ({ limit, offset }) => {
+    const res = await client.get(
+      `/search/posts/${id}?limit=${limit}&offset=${offset}`,
+    );
+    return res.data;
+  };
+
+  const {
+    data: posts,
+    loading: loadingPosts,
+    error: errorPosts,
+    nextPage,
+    refresh: refreshPosts,
+  } = usePostsPagination({ promise: fetchUserPosts, limit: 10 });
 
   const fetchFollowedUsers = async () => {
     try {
@@ -42,17 +54,6 @@ export default function UserPage() {
         setUser(res.data);
       })
       .catch(() => {});
-
-    client
-      .get(`/search/posts/${id}`)
-      .then((res) => {
-        setPosts(res.data);
-        setLoadingPosts(null);
-      })
-      .catch((error) => {
-        setLoadingPosts(null);
-        setErrorPosts(error);
-      });
 
     client
       .get(`/user/${id}`)
@@ -88,6 +89,8 @@ export default function UserPage() {
       });
   }
 
+  const loadingNewPosts = loadingPosts && posts?.length;
+
   return (
     <>
       <Header followedUsers={followedUsers} />
@@ -112,6 +115,13 @@ export default function UserPage() {
                 loading={loadingPosts}
                 followedUsers={followedUsers}
                 page="userpage"
+                refreshPosts={refreshPosts}
+              />
+              <InfiniteScroll
+                dataLength={posts?.length}
+                fetch={nextPage}
+                message="Loading more posts..."
+                loadingNewData={loadingNewPosts}
               />
             </PostsStyled>
             <TrendingStyled posts={posts} />

@@ -13,7 +13,7 @@ import CreatePost from '../../components/CreatePost';
 import Header from '../../components/Header';
 import { useMutation } from '../../hooks/request.hooks';
 import usePostsPagination from '../../hooks/posts.hooks';
-import { getUserFollowers, publishPost } from '../../services/api/timeline.services';
+import { getUserFollowers, publishPost, searchPosts } from '../../services/api/timeline.services';
 import PostsList from '../../components/PostsList';
 import TrendingStyled from '../../components/Trending';
 import client from '../../services/api/api.client';
@@ -28,7 +28,7 @@ export default function Timeline() {
     error: errorPosts,
     refresh: refreshPosts,
     nextPage,
-  } = usePostsPagination(10);
+  } = usePostsPagination({ promise: searchPosts, limit: 10 });
 
   const {
     mutate: publish,
