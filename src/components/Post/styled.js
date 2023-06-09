@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const PostStyled = styled.div`
+const PostStyled = styled.div`
   background: #171717;
   border-radius: 16px;
   padding: 16px 12px;

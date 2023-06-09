@@ -1,12 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PostActions from '../PostActions';
+import PostActions from '../PostActions';
 import EditableText from '../EditableText';
 import { PostStyled, SideButtons } from './styled';
 import { UserAvatarStyled } from '../../styled';
 import highlightHashtags from './utils';
 import LinkPreview from '../LinkPreview';
 import { useMutation } from '../../hooks/request.hooks';
+import { editPost } from '../../services/api/posts.services';
 import { editPost } from '../../services/api/posts.services';
 import Likes from '../Likes';
 import Context from '../../Context';
@@ -22,6 +24,9 @@ export default function Post({
   userId,
   url,
   refreshPosts,
+  repostUserName,
+  repostUserId,
+  repostCount,
   repostUserName,
   repostUserId,
   repostCount,
@@ -67,6 +72,7 @@ export default function Post({
   };
 
   const postDescription = highlightHashtags(rawDescription);
+  const isRepost = repostUserId !== null;
   const isRepost = repostUserId !== null;
 
   return (
