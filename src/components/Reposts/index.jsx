@@ -16,8 +16,8 @@ export default function Reposts({ postId, repostCount, onRepostSuccess }) {
         setIsOpen(false);
         onRepostSuccess();
       },
-      onError: () => {
-        alert('There was an error sharing this link');
+      onError: (err) => {
+        alert(err.response?.data ?? 'There was an error sharing this link');
       },
     });
   };
