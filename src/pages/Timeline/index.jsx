@@ -65,7 +65,7 @@ export default function Timeline() {
     if (posts) {
       client.get(`/latestPostsUpdate?createdAt=${posts[0].createdAt}`).then((res) => {
         // eslint-disable-next-line no-console
-        console.log(res);
+        console.log(res.data);
       });
     }
   }, 15000);
