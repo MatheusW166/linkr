@@ -8,9 +8,10 @@ export const PostStyled = styled.div`
   gap: 12px;
   position: relative;
 
-  &:has(.repost-badge) {
-    margin-top: 32px;
-  }
+  ${({ isRepost }) => {
+    if (isRepost) return 'margin-top: 32px;';
+    return null;
+  }}
 
   a {
     width: fit-content;
