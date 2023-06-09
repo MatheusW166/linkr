@@ -1,5 +1,10 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import React, {
+  Fragment,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { BsSend } from 'react-icons/bs';
 import Context from '../../Context';
 import Comment from '../Comment';
@@ -63,12 +68,12 @@ export default function Comments({
       data-test="comment-box"
     >
       {comments.map((comment) => (
-        <>
+        <Fragment key={comment.id}>
           <Comment
             comment={comment}
           />
           <hr />
-        </>
+        </Fragment>
       ))}
       <PostCommentStyled>
         <img src={user?.photo} alt="avatar" />

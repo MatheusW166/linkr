@@ -23,7 +23,7 @@ export const TextStyled = styled.p`
   color: #F3F3F3;
 `;
 
-export const UserNameStyled = styled.p`
+export const UserNameStyled = styled.div`
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
