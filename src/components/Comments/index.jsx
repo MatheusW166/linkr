@@ -60,6 +60,7 @@ export default function Comments({
   return (
     <CommentsContainerStyled
       areCommentsVisible={areCommentsVisible}
+      data-test="comment-box"
     >
       {comments.map((comment) => (
         <>
@@ -80,11 +81,13 @@ export default function Comments({
             onChange={(event) => setPostCommentText(event.target.value)}
             disabled={isLoading}
             maxLength="280"
+            data-test="comment-input"
           />
           <button
             type="submit"
             disabled={isLoading}
             onClick={postNewComment}
+            data-test="comment-submit"
           >
             <BsSend />
           </button>

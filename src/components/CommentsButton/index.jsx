@@ -12,10 +12,11 @@ export default function CommentsButton({
       <CommentsButtonStyled
         type="button"
         onClick={() => setAreCommentsVisible(!areCommentsVisible)}
+        data-test="comment-btn"
       >
         <AiOutlineComment />
       </CommentsButtonStyled>
-      <p>
+      <p data-test="comment-counter">
         {totalComments}
         {totalComments === 1 ? ' comment' : ' comments'}
       </p>
