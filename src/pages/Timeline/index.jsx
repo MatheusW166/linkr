@@ -62,11 +62,12 @@ export default function Timeline() {
   };
 
   useInterval(() => {
-    client.get('/posts').then((res) => {
-      if (res.data.length !== posts.length) {
-        setUpdatedPosts(res.data);
-      }
-    });
+    if (posts) {
+      client.get(`/latestPostsUpdate?createdAt=${posts[0].createdAt}`).then((res) => {
+        // eslint-disable-next-line no-console
+        console.log(res);
+      });
+    }
   }, 15000);
 
   const [followedUsers, setFollowedUsers] = useState([]);
