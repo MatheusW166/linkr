@@ -125,6 +125,7 @@ export default function Timeline() {
               <InfiniteScroll
                 dataLength={posts?.length}
                 fetch={nextPage}
+                message="Loading more posts..."
                 loadingNewData={loadingNewPosts}
               />
             </PostsStyled>
