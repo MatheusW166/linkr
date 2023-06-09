@@ -54,6 +54,7 @@ export default function Timeline() {
   };
 
   const loadingNewPosts = loadingPosts && posts?.length;
+  const loadingFirstPosts = loadingPosts && !posts?.length;
 
   const handleUpdatePosts = (event) => {
     event.preventDefault();
@@ -113,7 +114,7 @@ export default function Timeline() {
               <PostsList
                 posts={posts}
                 error={errorPosts}
-                loading={loadingPosts}
+                loading={loadingFirstPosts}
                 refreshPosts={refreshPosts}
                 followedUsers={followedUsers}
                 page="timeline"

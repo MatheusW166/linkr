@@ -21,7 +21,7 @@ export default function PostsList({
     );
   }
 
-  if (loading) {
+  if (loading && !posts?.length) {
     return <TitleH3Styled>Loading...</TitleH3Styled>;
   }
 
