@@ -42,6 +42,7 @@ export const PostsStyled = styled.div`
   width: 611px;
   gap: 30px;
   position: relative;
+  margin-bottom: 24px;
 `;
 
 export const UpdateButton = styled.button`
