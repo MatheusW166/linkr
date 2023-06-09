@@ -68,7 +68,7 @@ export default function SearchBar() {
                 <img src={user.photo} alt={user.name} />
                 <h2>
                   {user.name}
-                  <Following>{user.followingId ? '• following' : ''}</Following>
+                  <Following>{user.followerId ? '• following' : ''}</Following>
                 </h2>
               </Item>
             ))}
