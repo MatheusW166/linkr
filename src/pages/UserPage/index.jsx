@@ -37,6 +37,10 @@ export default function UserPage() {
     refresh: refreshPosts,
   } = usePostsPagination({ promise: fetchUserPosts, limit: 10 });
 
+  useEffect(() => {
+    refreshPosts();
+  }, [id]);
+
   const fetchFollowedUsers = async () => {
     try {
       const users = await getUserFollowers();
