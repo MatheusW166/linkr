@@ -28,10 +28,6 @@ export default function HashtagPage() {
     }
   };
 
-  useEffect(() => {
-    fetchFollowedUsers();
-  }, [hashtag]);
-
   const fetchPosts = ({ limit, offset }) => retrievePosts({ hashtag, limit, offset });
 
   const {
@@ -41,6 +37,11 @@ export default function HashtagPage() {
     refresh: refreshPosts,
     nextPage,
   } = usePostsPagination({ promise: fetchPosts, limit: 10 });
+
+  useEffect(() => {
+    fetchFollowedUsers();
+    refreshPosts();
+  }, [hashtag]);
 
   const loadingNewPosts = loadingPosts && posts?.length;
 
