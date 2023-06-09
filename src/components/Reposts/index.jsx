@@ -33,9 +33,15 @@ export default function Reposts({ postId, repostCount, onRepostSuccess }) {
         isOpen={isOpen}
         isLoading={loading}
       />
-      <RepostsStyled id={postId} onClick={() => setIsOpen(true)}>
+      <RepostsStyled
+        data-test="repost-btn"
+        id={postId}
+        onClick={() => setIsOpen(true)}
+      >
         <FaRegShareSquare />
-        {`${repostCount} ${repostCount !== 1 ? 're-posts' : 're-post'}`}
+        <span data-test="repost-counter">
+          {`${repostCount} ${repostCount !== 1 ? 're-posts' : 're-post'}`}
+        </span>
       </RepostsStyled>
     </>
   );
