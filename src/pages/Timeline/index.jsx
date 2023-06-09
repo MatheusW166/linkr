@@ -97,6 +97,7 @@ export default function Timeline() {
               <UpdateButton
                 update={posts && updatedPosts.length > 0}
                 onClick={handleUpdatePosts}
+                data-test="load-btn"
               >
                 {posts && updatedPosts.length > 0 ? (
                   <p>
