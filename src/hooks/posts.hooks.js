@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { searchPosts } from '../services/api/timeline.services';
 
-export default function usePostsPagination(limit = 10) {
+export default function usePostsPagination({ promise, limit = 10 }) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -15,7 +14,7 @@ export default function usePostsPagination(limit = 10) {
     if (loading && data) return;
     setLoading(true);
     setError(null);
-    searchPosts({ limit, offset: page * limit })
+    promise({ limit, offset: page * limit })
       .then((newData) => {
         if (override) {
           setData(newData);
