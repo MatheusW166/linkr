@@ -2,11 +2,10 @@ import styled from 'styled-components';
 
 export const LikesContainer = styled.div`
   width: 50px;
-  min-height: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 18px;
+
   p {
     cursor: default;
     font-family: 'Lato', sans-serif;

@@ -58,6 +58,7 @@ export const TitleH3Styled = styled.h3`
   font-weight: 700;
   font-size: 24px;
   text-align: center;
+  line-height: 24px;
 
   @media screen and (max-width: 616px) {
     font-size: 18px;
