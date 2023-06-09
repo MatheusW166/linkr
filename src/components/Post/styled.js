@@ -1,13 +1,22 @@
 import styled from 'styled-components';
 
-export const PostStyled = styled.div`
+const PostStyled = styled.div`
   background: #171717;
   border-radius: 16px;
   padding: 16px 18px;
   display: flex;
   gap: 18px;
   position: relative;
-  overflow: hidden;
+
+  &:has(.repost-badge) {
+    margin-top: 32px;
+  }
+
+  .post-reactions {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
 
   a {
     width: fit-content;
@@ -54,14 +63,4 @@ export const PostStyled = styled.div`
   }
 `;
 
-export const PostActionsStyled = styled.div`
-  position: absolute;
-  right: 18px;
-  display: flex;
-  gap: 12px;
-
-  svg:hover {
-    opacity: 0.8;
-    cursor: pointer;
-  }
-`;
+export default PostStyled;

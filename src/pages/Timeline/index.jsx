@@ -8,8 +8,7 @@ import {
   PostsStyled,
   UpdateButton,
 } from './styled';
-import ScrollIndicator from '../../components/ScrollIndicator';
-import { LoaderStyled, TitleH2Styled } from '../../styled';
+import { TitleH2Styled } from '../../styled';
 import CreatePost from '../../components/CreatePost';
 import Header from '../../components/Header';
 import { useMutation } from '../../hooks/request.hooks';
@@ -18,6 +17,7 @@ import { publishPost } from '../../services/api/timeline.services';
 import PostsList from '../../components/PostsList';
 import TrendingStyled from '../../components/Trending';
 import client from '../../services/api/api.client';
+import InfiniteScroll from '../../components/InfiniteScroll';
 
 export default function Timeline() {
   const [updatedPosts, setUpdatedPosts] = useState([]);
@@ -30,7 +30,10 @@ export default function Timeline() {
     nextPage,
   } = usePostsPagination(10);
 
-  const { mutate: publish, loading: loadingPublish } = useMutation(publishPost);
+  const {
+    mutate: publish,
+    loading: loadingPublish,
+  } = useMutation(publishPost);
 
   const handlePostSubmit = (event) => {
     event.preventDefault();
@@ -98,8 +101,11 @@ export default function Timeline() {
                 loading={loadingPosts}
                 refreshPosts={refreshPosts}
               />
-              {posts?.length && <ScrollIndicator onIntersection={nextPage} />}
-              {loadingNewPosts && <LoaderStyled />}
+              <InfiniteScroll
+                dataLength={posts?.length}
+                fetch={nextPage}
+                loadingNewData={loadingNewPosts}
+              />
             </PostsStyled>
             <TrendingStyled posts={posts} />
           </SectionStyled>

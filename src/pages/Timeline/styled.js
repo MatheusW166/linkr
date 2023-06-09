@@ -42,16 +42,6 @@ export const PostsStyled = styled.div`
   width: 611px;
   gap: 30px;
   position: relative;
-
-  span:last-child {
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 40px;
-    border-width: 4px;
-  }
 `;
 
 export const UpdateButton = styled.button`

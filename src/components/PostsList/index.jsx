@@ -2,6 +2,7 @@ import React from 'react';
 import { ErrorMessageStyled, TitleH3Styled } from '../../styled';
 import Post from '../Post';
 import PostsUlStyled from './styled';
+import getPostKey from './utils';
 
 export default function PostsList({
   posts,
@@ -27,7 +28,7 @@ export default function PostsList({
       {loading && <TitleH3Styled>Loading...</TitleH3Styled>}
       <PostsUlStyled>
         {posts?.map((post) => (
-          <li key={post.id}>
+          <li key={getPostKey(post)}>
             <Post
               postId={post.id}
               userName={post.userName}
@@ -36,6 +37,9 @@ export default function PostsList({
               description={post.description}
               url={post.url}
               refreshPosts={refreshPosts}
+              repostUserId={post.repostUserId}
+              repostUserName={post.repostUserName}
+              repostCount={post.repostCount}
             />
           </li>
         ))}
