@@ -107,6 +107,7 @@ export default function UserPage() {
               disabled={isSubmitting}
               type="button"
               onClick={isFollowing === false ? followUser : unfollowUser}
+              data-test="follow-btn"
             >
               {isFollowing === false ? 'Follow' : 'Unfollow'}
             </button>
