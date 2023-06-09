@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { CommentContainerStyled, TextStyled, UserNameStyled } from './styled';
 
 export default function Comment({ comment }) {
   const {
     isAuthor,
     isFollowed,
+    userId,
     userName,
     userPicture,
     text,
@@ -27,7 +29,9 @@ export default function Comment({ comment }) {
       <img src={userPicture} alt="avatar" />
       <div>
         <UserNameStyled>
-          {userName}
+          <Link to={`/user/${userId}`}>
+            {userName}
+          </Link>
           <div>
             {roleMessage(isAuthor, isFollowed)}
           </div>
