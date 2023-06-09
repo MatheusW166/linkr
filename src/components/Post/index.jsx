@@ -33,10 +33,7 @@ export default function Post({
   const [areCommentsVisible, setAreCommentsVisible] = useState(false);
   const [comments, setComments] = useState([]);
 
-  const {
-    mutate: editUserPost,
-    loading: loadingEdit,
-  } = useMutation(editPost);
+  const { mutate: editUserPost, loading: loadingEdit } = useMutation(editPost);
 
   const closeEdition = () => setIsEditing(false);
   const toggleEdition = () => setIsEditing(!isEditing);
@@ -62,7 +59,7 @@ export default function Post({
   };
 
   const postDescription = highlightHashtags(rawDescription);
-  const isRepost = repostUserId !== null;
+  const isRepost = !!repostUserId;
 
   return (
     <>
@@ -95,7 +92,9 @@ export default function Post({
           />
         </SideButtons>
         <div>
-          <Link data-test="username" to={`/user/${userId}`}>{userName}</Link>
+          <Link data-test="username" to={`/user/${userId}`}>
+            {userName}
+          </Link>
           <EditableText
             text={postDescription}
             defaultInputValue={rawDescription}
