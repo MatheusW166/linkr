@@ -12,7 +12,7 @@ export default function EditableText({
   const textRef = useRef();
 
   const handleKeyDown = (event) => {
-    if (event.key === 'Escape' && onEscape) onEscape(event);
+    if (event.key === 'Escape' && onEscape) { onEscape(event); }
     if (event.key === 'Enter' && onEnter) {
       event.preventDefault();
       onEnter(event);
@@ -26,7 +26,11 @@ export default function EditableText({
   };
 
   if (!isEditing) {
-    return <p data-test="description" ref={textRef}>{text}</p>;
+    return (
+      <p data-test="description" ref={textRef}>
+        {text}
+      </p>
+    );
   }
 
   return (

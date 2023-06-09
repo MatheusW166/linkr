@@ -57,7 +57,9 @@ export default function UserPage() {
       .then((res) => {
         setUser(res.data);
       })
-      .catch(() => {});
+      .catch(() => {
+        // This is intentional
+      });
 
     client
       .get(`/user/${id}`)
@@ -107,6 +109,7 @@ export default function UserPage() {
               disabled={isSubmitting}
               type="button"
               onClick={isFollowing === false ? followUser : unfollowUser}
+              data-test="follow-btn"
             >
               {isFollowing === false ? 'Follow' : 'Unfollow'}
             </button>

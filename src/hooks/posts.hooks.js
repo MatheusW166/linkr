@@ -11,7 +11,7 @@ export default function usePostsPagination({ promise, limit = 10 }) {
   };
 
   const fetch = (override) => {
-    if (loading && data) return;
+    if (loading && data) { return; }
     setLoading(true);
     setError(null);
     promise({ limit, offset: page * limit })

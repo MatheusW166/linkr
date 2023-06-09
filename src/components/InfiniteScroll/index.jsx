@@ -6,8 +6,8 @@ export function ScrollIndicator({ onIntersection, loader, message }) {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       const indicator = entries[0];
-      if (!indicator.isIntersecting) return;
-      if (!onIntersection) return;
+      if (!indicator.isIntersecting) { return; }
+      if (!onIntersection) { return; }
       onIntersection();
     });
     observer.observe(document.querySelector('#indicator'));
