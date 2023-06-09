@@ -1,21 +1,15 @@
 import styled from 'styled-components';
 
-const PostStyled = styled.div`
+export const PostStyled = styled.div`
   background: #171717;
   border-radius: 16px;
-  padding: 16px 18px;
+  padding: 16px 12px;
   display: flex;
-  gap: 18px;
+  gap: 12px;
   position: relative;
 
   &:has(.repost-badge) {
     margin-top: 32px;
-  }
-
-  .post-reactions {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
   }
 
   a {
@@ -63,4 +57,9 @@ const PostStyled = styled.div`
   }
 `;
 
-export default PostStyled;
+export const SideButtons = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+`;
