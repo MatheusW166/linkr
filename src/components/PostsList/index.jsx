@@ -26,7 +26,7 @@ export default function PostsList({
   }
 
   if (posts?.length === 0) {
-    if (page === 'userpage') {
+    if (page === 'userpage' || page === 'hashtags') {
       return <TitleH3Styled data-test="message">No posts found</TitleH3Styled>;
     }
     if (followedUsers?.length > 0) {

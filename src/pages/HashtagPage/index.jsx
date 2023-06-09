@@ -1,6 +1,5 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useRequest } from '../../hooks/request.hooks';
 import retrievePosts from '../../services/api/hashtags.services';
 import Header from '../../components/Header';
 import PostsList from '../../components/PostsList';
@@ -13,15 +12,11 @@ import {
   PostsStyled,
 } from './styled';
 import { getUserFollowers } from '../../services/api/timeline.services';
+import usePostsPagination from '../../hooks/posts.hooks';
+import InfiniteScroll from '../../components/InfiniteScroll';
 
 export default function HashtagPage() {
   const { hashtag } = useParams();
-
-  const retrievePostsByHashtag = useCallback(
-    () => retrievePosts(hashtag),
-    [hashtag],
-  );
-
   const [followedUsers, setFollowedUsers] = useState([]);
 
   const fetchFollowedUsers = async () => {
@@ -34,16 +29,20 @@ export default function HashtagPage() {
   };
 
   useEffect(() => {
-    retrievePosts(hashtag);
     fetchFollowedUsers();
   }, [hashtag]);
+
+  const fetchPosts = ({ limit, offset }) => retrievePosts({ hashtag, limit, offset });
 
   const {
     data: posts,
     loading: loadingPosts,
     error: errorPosts,
     refresh: refreshPosts,
-  } = useRequest(retrievePostsByHashtag);
+    nextPage,
+  } = usePostsPagination({ promise: fetchPosts, limit: 10 });
+
+  const loadingNewPosts = loadingPosts && posts?.length;
 
   return (
     <>
@@ -61,13 +60,17 @@ export default function HashtagPage() {
                 error={errorPosts}
                 loading={loadingPosts}
                 followedUsers={followedUsers}
-                page="hashtag"
+                page="hashtags"
                 refreshPosts={refreshPosts}
               />
+              <InfiniteScroll
+                dataLength={posts?.length}
+                fetch={nextPage}
+                message="Loading more posts..."
+                loadingNewData={loadingNewPosts}
+              />
             </PostsStyled>
-            <TrendingStyled
-              posts={posts}
-            />
+            <TrendingStyled posts={posts} />
           </SectionStyled>
         </MainStyled>
       </PageContainerStyled>
