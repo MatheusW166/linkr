@@ -25,7 +25,7 @@ export default function Comment({ comment }) {
   }
 
   return (
-    <CommentContainerStyled>
+    <CommentContainerStyled data-test="comment">
       <img src={userPicture} alt="avatar" />
       <div>
         <UserNameStyled>
