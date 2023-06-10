@@ -21,12 +21,20 @@ export const MainStyled = styled.main`
   h2 {
     @media screen and (max-width: 616px) {
       margin-left: 24px;
+
+      button {
+        margin-right: 24px;
+      } 
     }
   }
 
   @media screen and (max-width: 616px) {
       width: 100%;
     }
+
+  button:disabled {
+    pointer-events: none;
+  }
 `;
 
 export const SectionStyled = styled.div`

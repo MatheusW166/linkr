@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { TitleH2Styled } from '../../styled';
 import {
@@ -14,6 +14,7 @@ import client from '../../services/api/api.client';
 import { getUserFollowers } from '../../services/api/timeline.services';
 import InfiniteScroll from '../../components/InfiniteScroll';
 import usePostsPagination from '../../hooks/posts.hooks';
+import Context from '../../Context';
 
 export default function UserPage() {
   const { id } = useParams();
@@ -21,6 +22,8 @@ export default function UserPage() {
   const [isFollowing, setIsFollowing] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [followedUsers, setFollowedUsers] = useState([]);
+  const { user: loggedUser } = useContext(Context);
+  const isLoggedUser = (Number(id) === loggedUser.id);
 
   const fetchUserPosts = async ({ limit, offset }) => {
     const res = await client.get(
@@ -106,7 +109,7 @@ export default function UserPage() {
             {user ? user?.name : 'User'}
             &apos;s posts
             <button
-              disabled={isSubmitting}
+              disabled={isSubmitting || isLoggedUser}
               type="button"
               onClick={isFollowing === false ? followUser : unfollowUser}
               data-test="follow-btn"
